@@ -1,8 +1,10 @@
+import 'package:agora_flutter_webrtc_quickstart/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 import '../theme.dart';
+import 'entry.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -11,7 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   PageController pageController =
-      new PageController(viewportFraction: 0.5, initialPage: 1);
+  new PageController(viewportFraction: 0.5, initialPage: 1);
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +45,14 @@ class _HomeState extends State<Home> {
                 onPressed: () {},
                 icon: loggedin
                     ? Icon(
-                        Icons.account_circle,
-                        color: fadedBlack,
-                      )
+                  Icons.account_circle,
+                  color: fadedBlack,
+                )
                     : CircleAvatar(
-                        backgroundImage: AssetImage(
-                          'assets/images/avatar.png',
-                        ),
-                      ),
+                  backgroundImage: AssetImage(
+                    'assets/images/avatar.png',
+                  ),
+                ),
               ),
             ],
           ),
@@ -68,7 +70,9 @@ class _HomeState extends State<Home> {
                 child: Container(
                   alignment: Alignment.topRight,
 
-                  child: Image.asset("assets/images/dsclogo.png", width: 300, height: 300, fit: BoxFit.cover,),
+                  child: Image.asset("assets/images/dsclogo.png", width: 300,
+                    height: 300,
+                    fit: BoxFit.cover,),
                 ),
               ),
               Container(
@@ -100,30 +104,66 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 20),
-                      height: 240,
-                      width: double.infinity,
-                      child: PageView(
-                        controller: pageController,
-                        children: <Widget>[
-                          buildCard(
-                            title: "DSC Support",
-                            icon: Icons.help,
-                            cardColor: Colors.red[600],
+                    Stack(
+                      children: <Widget>[
+                        Container(
+                          height: 20,
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                              gradient: LinearGradient(
+                                  colors: [
+                                    Colors.red,
+                                    Colors.red,
+                                    Colors.green,
+                                    Colors.blue,
+                                    Colors.blue
+                                  ]
+                              )
                           ),
-                          buildCard(
-                            title: "DSC Core Team",
-                            icon: Icons.group,
-                            cardColor: Colors.green[600],
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          height: 240,
+                          width: double.infinity,
+                          child: PageView(
+                            controller: pageController,
+                            children: <Widget>[
+                              InkWell(
+                                child: buildCard(
+                                  title: "DSC Support",
+                                  icon: Icons.help,
+                                  cardColor: Colors.red[600],
+                                ),
+                                onTap: () {
+                                  Navigator.pushNamed(context, "/index", arguments: Constants.DSCSUPPORT);
+                                },
+                              ),
+                              InkWell(
+                                child: buildCard(
+                                  title: "DSC Core Team",
+                                  icon: Icons.group,
+                                  cardColor: Colors.green[600],
+                                ),
+                                onTap: () {
+                                 Navigator.pushNamed(context, "/index", arguments: Constants.CORE_TEAM_CHANNEL);
+                                },
+                              ),
+                              InkWell(
+                                child: buildCard(
+                                  title: "Agora Support",
+                                  icon: Icons.headset_mic,
+                                  cardColor: Colors.blue[600],
+                                ),
+                                onTap: () {
+                                  Navigator.pushNamed(context, "/index", arguments: Constants.AGORASUPPORT);
+                                },
+                              ),
+                            ],
                           ),
-                          buildCard(
-                            title: "Agora Support",
-                            icon: Icons.headset_mic,
-                            cardColor: Colors.blue[600],
-                          ),
-                        ],
-                      ),
+                        )
+                      ],
+                      alignment: Alignment.center,
                     )
                   ],
                 ),
