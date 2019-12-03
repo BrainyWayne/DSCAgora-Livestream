@@ -1,4 +1,4 @@
-package com.example.agora_flutter_webrtc_quickstart
+package com.dsc.agora.livestream
 
 import android.os.Bundle
 
