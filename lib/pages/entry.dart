@@ -56,12 +56,13 @@ class IndexState extends State<IndexPage> {
                       Text(
                         "Join a Group",
                         style: TextStyle(
-                          fontSize: 74.0,
-                          fontWeight: FontWeight.w900,
-                          color: fadedBlack 
-                          // fontFamily: "Georgia",
-                        ),
+                            fontSize: 34.0,
+                            fontWeight: FontWeight.w900,
+                            color: fadedBlack
+                            // fontFamily: "Georgia",
+                            ),
                       ),
+                      SizedBox(height: 5),
                       Text(
                         "New one is created if group does not exist",
                         style: TextStyle(
