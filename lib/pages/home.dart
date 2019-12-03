@@ -20,7 +20,9 @@ class _HomeState extends State<Home> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/index');
+        },
         child: Icon(Icons.video_call),
       ),
       bottomNavigationBar: BottomAppBar(
