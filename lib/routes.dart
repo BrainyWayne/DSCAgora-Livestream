@@ -1,4 +1,5 @@
 import 'package:agora_flutter_webrtc_quickstart/pages/entry.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -12,6 +13,8 @@ class Router {
 
     switch (name) {
       case '/':
+        return MaterialPageRoute(builder: (_) => Root());
+      case '/home':
         return MaterialPageRoute(builder: (_) => Home());
       case '/index':
         return MaterialPageRoute(

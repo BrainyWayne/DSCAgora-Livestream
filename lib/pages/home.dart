@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   PageController pageController =
-  new PageController(viewportFraction: 0.5, initialPage: 1);
+      new PageController(viewportFraction: 0.5, initialPage: 1);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               IconButton(
-                onPressed: () {},
+                onPressed: () => Navigator.pushNamed(context, '/settings'),
                 icon: Icon(
                   Icons.settings,
                   color: fadedBlack,
@@ -45,14 +45,14 @@ class _HomeState extends State<Home> {
                 onPressed: () {},
                 icon: loggedin
                     ? Icon(
-                  Icons.account_circle,
-                  color: fadedBlack,
-                )
+                        Icons.account_circle,
+                        color: fadedBlack,
+                      )
                     : CircleAvatar(
-                  backgroundImage: AssetImage(
-                    'assets/images/avatar.png',
-                  ),
-                ),
+                        backgroundImage: AssetImage(
+                          'assets/images/avatar.png',
+                        ),
+                      ),
               ),
             ],
           ),
@@ -69,11 +69,11 @@ class _HomeState extends State<Home> {
                 top: -80,
                 child: Container(
                   alignment: Alignment.topRight,
-
-                  child: Image.asset("assets/images/dsclogo.png", width: 300,
+                  child: Image.asset(
+                    "assets/images/dsclogo.png",
+                    width: 300,
                     height: 300,
-                    fit: BoxFit.cover,),
-
+                  ),
                 ),
               ),
               Container(
@@ -111,17 +111,14 @@ class _HomeState extends State<Home> {
                           height: 20,
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Colors.red,
-                                    Colors.red,
-                                    Colors.green,
-                                    Colors.blue,
-                                    Colors.blue
-                                  ]
-                              )
-                          ),
+                              borderRadius: BorderRadius.circular(15),
+                              gradient: LinearGradient(colors: [
+                                Colors.red,
+                                Colors.red,
+                                Colors.green,
+                                Colors.blue,
+                                Colors.blue
+                              ])),
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 20),
@@ -137,7 +134,8 @@ class _HomeState extends State<Home> {
                                   cardColor: Colors.red[600],
                                 ),
                                 onTap: () {
-                                  Navigator.pushNamed(context, "/index", arguments: Constants.DSCSUPPORT);
+                                  Navigator.pushNamed(context, "/index",
+                                      arguments: Constants.DSCSUPPORT);
                                 },
                               ),
                               InkWell(
@@ -147,7 +145,8 @@ class _HomeState extends State<Home> {
                                   cardColor: Colors.green[600],
                                 ),
                                 onTap: () {
-                                 Navigator.pushNamed(context, "/index", arguments: Constants.CORE_TEAM_CHANNEL);
+                                  Navigator.pushNamed(context, "/index",
+                                      arguments: Constants.CORE_TEAM_CHANNEL);
                                 },
                               ),
                               InkWell(
@@ -157,7 +156,8 @@ class _HomeState extends State<Home> {
                                   cardColor: Colors.blue[600],
                                 ),
                                 onTap: () {
-                                  Navigator.pushNamed(context, "/index", arguments: Constants.AGORASUPPORT);
+                                  Navigator.pushNamed(context, "/index",
+                                      arguments: Constants.AGORASUPPORT);
                                 },
                               ),
                             ],

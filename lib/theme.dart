@@ -5,5 +5,5 @@ Color blackText = Color(0xff5f6368);
 const Color fadedBlack = Color(0xff5f6368);
 
 const Color greyText = Colors.grey;
-
+// const Color accent = Theme.of(context).accentColor;
 ThemeData lightTheme = ThemeData(primarySwatch: Colors.blue);
