@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'call.dart';
 
 class IndexPage extends StatefulWidget {
+  final String channelName;
+
+  IndexPage({this.channelName});
   @override
   State<StatefulWidget> createState() {
     return new IndexState();
@@ -10,7 +13,7 @@ class IndexPage extends StatefulWidget {
 }
 
 class IndexState extends State<IndexPage> {
-  final _channelController = TextEditingController();
+  TextEditingController _channelController;
 
   bool _validateError = false;
   bool _video = true;
@@ -37,156 +40,179 @@ class IndexState extends State<IndexPage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    /// set inital channel name
+    _channelController = TextEditingController(text: widget.channelName);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text('Call'),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            // height: 400,
-            child: Column(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 50),
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        "Join a Group",
-                        style: TextStyle(
-                            fontSize: 34.0,
-                            fontWeight: FontWeight.w900,
-                            color: fadedBlack
-                            // fontFamily: "Georgia",
-                            ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+              height: MediaQuery.of(context).size.height,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              // height: 400,
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.settings,
+                        color: fadedBlack,
                       ),
-                      SizedBox(height: 5),
-                      Text(
-                        "New one is created if group does not exist",
-                        style: TextStyle(
-                          fontSize: 12.0,
+                      onPressed: () {},
+                    ),
+                  ),
+                  SizedBox(height: 50),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 50),
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          "Join a Group",
+                          style: TextStyle(
+                              fontSize: 34.0,
+                              fontWeight: FontWeight.w900,
+                              color: fadedBlack
+                              // fontFamily: "Georgia",
+                              ),
                         ),
-                      )
+                        SizedBox(height: 5),
+                        Text(
+                          "New one is created if group does not exist",
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: greyText,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: <Widget>[
+                      TextField(
+                        controller: _channelController,
+                        decoration: InputDecoration(
+                            errorText: _validateError
+                                ? "Channel name is mandatory"
+                                : null,
+                            border: UnderlineInputBorder(
+                                borderSide: BorderSide(width: 1)),
+                            hintText: 'Channel name'),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: RaisedButton(
+                                onPressed: () => onJoin(),
+                                child: Text("Join"),
+                                color: Colors.blueAccent,
+                                textColor: Colors.white,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                Column(
-                  children: <Widget>[
-                    TextField(
-                      controller: _channelController,
-                      decoration: InputDecoration(
-                          errorText: _validateError
-                              ? "Channel name is mandatory"
-                              : null,
-                          border: UnderlineInputBorder(
-                              borderSide: BorderSide(width: 1)),
-                          hintText: 'Channel name'),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 20),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: RaisedButton(
-                              onPressed: () => onJoin(),
-                              child: Text("Join"),
-                              color: Colors.blueAccent,
-                              textColor: Colors.white,
-                            ),
-                          )
-                        ],
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          children: <Widget>[
+                            CheckboxListTile(
+                                title: Text("video"),
+                                value: _video,
+                                activeColor: Colors.blue, //选中时的颜色
+                                onChanged: (value) {
+                                  setState(() {
+                                    _video = value;
+                                  });
+                                },
+                                controlAffinity:
+                                    ListTileControlAffinity.leading),
+                            CheckboxListTile(
+                                title: Text("audio"),
+                                value: _audio,
+                                activeColor: Colors.blue, //选中时的颜色
+                                onChanged: (value) {
+                                  setState(() {
+                                    _audio = value;
+                                  });
+                                },
+                                controlAffinity:
+                                    ListTileControlAffinity.leading),
+                            // CheckboxListTile(
+                            //     title: Text("screen"),
+                            //     value: _screen,
+                            //     activeColor: Colors.blue, //选中时的颜色
+                            //     onChanged: (value) {
+                            //       setState(() {
+                            //         _screen = value;
+                            //       });
+                            //     },
+                            //     controlAffinity:
+                            //         ListTileControlAffinity.leading)
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        children: <Widget>[
-                          CheckboxListTile(
-                              title: Text("video"),
-                              value: _video,
-                              activeColor: Colors.blue, //选中时的颜色
-                              onChanged: (value) {
-                                setState(() {
-                                  _video = value;
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity.leading),
-                          CheckboxListTile(
-                              title: Text("audio"),
-                              value: _audio,
-                              activeColor: Colors.blue, //选中时的颜色
-                              onChanged: (value) {
-                                setState(() {
-                                  _audio = value;
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity.leading),
-                          // CheckboxListTile(
-                          //     title: Text("screen"),
-                          //     value: _screen,
-                          //     activeColor: Colors.blue, //选中时的颜色
-                          //     onChanged: (value) {
-                          //       setState(() {
-                          //         _screen = value;
-                          //       });
-                          //     },
-                          //     controlAffinity:
-                          //         ListTileControlAffinity.leading)
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                        child: Column(children: <Widget>[
-                      RadioListTile(
-                        title: const Text('240p'),
-                        value: "240p",
-                        groupValue: _profile,
-                        onChanged: (String value) {
-                          setState(() {
-                            _profile = value;
-                          });
-                        },
-                      ),
-                      RadioListTile(
-                        title: const Text('360p'),
-                        value: "360p",
-                        groupValue: _profile,
-                        onChanged: (String value) {
-                          setState(() {
-                            _profile = value;
-                          });
-                        },
-                      ),
-                      RadioListTile(
-                        title: const Text('480p'),
-                        value: "480p",
-                        groupValue: _profile,
-                        onChanged: (String value) {
-                          setState(() {
-                            _profile = value;
-                          });
-                        },
-                      ),
-                      RadioListTile(
-                        title: const Text('720p'),
-                        value: "720p",
-                        groupValue: _profile,
-                        onChanged: (String value) {
-                          setState(() {
-                            _profile = value;
-                          });
-                        },
-                      ),
-                    ])),
-                  ],
-                ),
-              ],
-            )),
+                      Expanded(
+                          child: Column(children: <Widget>[
+                        RadioListTile(
+                          title: const Text('240p'),
+                          value: "240p",
+                          groupValue: _profile,
+                          onChanged: (String value) {
+                            setState(() {
+                              _profile = value;
+                            });
+                          },
+                        ),
+                        RadioListTile(
+                          title: const Text('360p'),
+                          value: "360p",
+                          groupValue: _profile,
+                          onChanged: (String value) {
+                            setState(() {
+                              _profile = value;
+                            });
+                          },
+                        ),
+                        RadioListTile(
+                          title: const Text('480p'),
+                          value: "480p",
+                          groupValue: _profile,
+                          onChanged: (String value) {
+                            setState(() {
+                              _profile = value;
+                            });
+                          },
+                        ),
+                        RadioListTile(
+                          title: const Text('720p'),
+                          value: "720p",
+                          groupValue: _profile,
+                          onChanged: (String value) {
+                            setState(() {
+                              _profile = value;
+                            });
+                          },
+                        ),
+                      ])),
+                    ],
+                  ),
+                ],
+              )),
+        ),
       ),
       drawer: Drawer(
           child: Column(

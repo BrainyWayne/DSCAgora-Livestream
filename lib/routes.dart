@@ -14,7 +14,11 @@ class Router {
       case '/':
         return MaterialPageRoute(builder: (_) => Home());
       case '/index':
-        return MaterialPageRoute(builder: (_) => IndexPage());
+        return MaterialPageRoute(
+          builder: (_) => IndexPage(
+            channelName: args,
+          ),
+        );
       case '/settings':
         return MaterialPageRoute(builder: (_) => SettingsPage());
         break;

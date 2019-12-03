@@ -66,13 +66,22 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Positioned(
                 right: -40,
-                top: -20,
+                top: -80,
                 child: Container(
                   alignment: Alignment.topRight,
+<<<<<<< HEAD
 
                   child: Image.asset("assets/images/dsclogo.png", width: 300,
                     height: 300,
                     fit: BoxFit.cover,),
+=======
+                  child: Image.asset(
+                    "assets/images/dsclogo.png",
+                    width: 300,
+                    height: 300,
+                    fit: BoxFit.contain,
+                  ),
+>>>>>>> 1d5ad42c336f72a04e56a63aba3339e15100f1f0
                 ),
               ),
               Container(
