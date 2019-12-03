@@ -22,10 +22,6 @@ class IndexState extends State<IndexPage> {
   String _profile = "480p";
   final String _appId = "e7699cd7f23042ad86c214aee299a477";
 
-  final _widthController = TextEditingController();
-  final _heightController = TextEditingController();
-  final _frameRateController = TextEditingController();
-
   String _codec = "h264";
   String _mode = "live";
 
@@ -33,9 +29,7 @@ class IndexState extends State<IndexPage> {
   void dispose() {
     // dispose input controller
     _channelController.dispose();
-    _widthController.dispose();
-    _heightController.dispose();
-    _frameRateController.dispose();
+
     super.dispose();
   }
 
@@ -67,7 +61,8 @@ class IndexState extends State<IndexPage> {
                         Icons.settings,
                         color: fadedBlack,
                       ),
-                      onPressed: () {},
+                      onPressed: () =>
+                          Navigator.pushNamed(context, '/settings'),
                     ),
                   ),
                   SizedBox(height: 50),
@@ -214,110 +209,6 @@ class IndexState extends State<IndexPage> {
               )),
         ),
       ),
-      drawer: Drawer(
-          child: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
-            child: Text(
-              "Setting",
-              style: TextStyle(
-                fontSize: 35.0,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(8.0),
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(top: 20.0),
-                        child: TextField(
-                          controller: _widthController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                              hintText: 'Width', labelText: "width"),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20.0),
-                        child: TextField(
-                          controller: _heightController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                              hintText: 'Height', labelText: "height"),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20.0),
-                        child: TextField(
-                          controller: _frameRateController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                              hintText: 'FrameRate', labelText: "FrameRate"),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Column(
-                  children: <Widget>[
-                    RadioListTile(
-                      title: Text("h264"),
-                      value: "h264",
-                      groupValue: _codec,
-                      onChanged: (String value) {
-                        setState(() {
-                          _codec = value;
-                        });
-                      },
-                    ),
-                    RadioListTile(
-                      title: Text("vp8"),
-                      value: "vp8",
-                      groupValue: _codec,
-                      onChanged: (String value) {
-                        setState(() {
-                          _codec = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    RadioListTile(
-                      title: Text("live"),
-                      value: "live",
-                      groupValue: _mode,
-                      onChanged: (String value) {
-                        setState(() {
-                          _mode = value;
-                        });
-                      },
-                    ),
-                    RadioListTile(
-                      title: Text("rtc"),
-                      value: "rtc",
-                      groupValue: _mode,
-                      onChanged: (String value) {
-                        setState(() {
-                          _mode = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
-      )),
     );
   }
 
@@ -339,9 +230,9 @@ class IndexState extends State<IndexPage> {
                     audio: _audio,
                     screen: _screen,
                     profile: _profile,
-                    width: _widthController.text,
-                    height: _heightController.text,
-                    framerate: _frameRateController.text,
+                    width: '_widthController.text',
+                    height: '_heightController.text',
+                    framerate: '_frameRateController.text',
                     codec: _codec,
                     mode: _mode,
                   )));

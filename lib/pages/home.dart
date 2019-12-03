@@ -35,7 +35,7 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               IconButton(
-                onPressed: () {},
+                onPressed: () => Navigator.pushNamed(context, '/settings'),
                 icon: Icon(
                   Icons.settings,
                   color: fadedBlack,
