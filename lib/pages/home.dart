@@ -63,14 +63,17 @@ class _HomeState extends State<Home> {
         child: SingleChildScrollView(
           child: Stack(
             children: <Widget>[
-              Container(
-                alignment: Alignment.topRight,
-                height: 200,
-                width: 200,
-                child: Placeholder(),
+              Positioned(
+                right: -40,
+                top: -20,
+                child: Container(
+                  alignment: Alignment.topRight,
+
+                  child: Image.asset("assets/images/dsclogo.png", width: 300, height: 300, fit: BoxFit.cover,),
+                ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 220),
+                padding: EdgeInsets.only(top: 120),
                 child: Column(
                   children: <Widget>[
                     Container(
