@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
         onGenerateRoute: Router.generateRoutes,
+        initialRoute: '/splashscreen',
       ),
     );
   }

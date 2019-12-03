@@ -1,5 +1,6 @@
 import 'package:agora_flutter_webrtc_quickstart/pages/entry.dart';
 import 'package:agora_flutter_webrtc_quickstart/pages/login.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -12,8 +13,10 @@ class Router {
     var args = settings.arguments;
 
     switch (name) {
+      case '/splashscreen':
+        return MaterialPageRoute(builder: (_) => SplashScreen());
       case '/':
-        return MaterialPageRoute(builder: (_) => Root());
+        return MaterialPageRoute(builder: (_) => Login());
       case '/home':
         return MaterialPageRoute(builder: (_) => Home());
       case '/index':
