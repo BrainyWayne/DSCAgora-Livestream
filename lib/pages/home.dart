@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
+import '../theme.dart';
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -11,9 +13,6 @@ class _HomeState extends State<Home> {
   PageController pageController =
       new PageController(viewportFraction: 0.5, initialPage: 1);
 
-  Color textWhite = Colors.white;
-  Color blackText = Colors.black;
-  Color fadedBlack = const Color(0xff5f6368);
   @override
   Widget build(BuildContext context) {
     var loggedin = false;
@@ -84,7 +83,9 @@ class _HomeState extends State<Home> {
                             'DSC KNUST',
                             textAlign: TextAlign.left,
                             style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 30),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 30,
+                                color: fadedBlack),
                           ),
                           Text(
                             'Live Streaming',

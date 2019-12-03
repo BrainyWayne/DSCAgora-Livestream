@@ -19,6 +19,7 @@ class Router {
         return MaterialPageRoute(builder: (_) => SettingsPage());
         break;
       default:
+        return MaterialPageRoute(builder: (_) => Scaffold());
     }
   }
 }

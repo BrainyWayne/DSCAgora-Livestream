@@ -1,3 +1,4 @@
+import 'package:agora_flutter_webrtc_quickstart/theme.dart';
 import 'package:flutter/material.dart';
 import 'call.dart';
 
@@ -40,27 +41,34 @@ class IndexState extends State<IndexPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('Agora&Flutter'),
+        title: Text('Call'),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
             // height: 400,
             child: Column(
               children: <Widget>[
-                Expanded(
-                  child: Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 50),
-                      child: Text(
-                        "Agora",
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 50),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        "Join a Group",
                         style: TextStyle(
                           fontSize: 74.0,
                           fontWeight: FontWeight.w900,
+                          color: fadedBlack 
                           // fontFamily: "Georgia",
                         ),
                       ),
-                    ),
+                      Text(
+                        "New one is created if group does not exist",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 Column(
@@ -92,93 +100,89 @@ class IndexState extends State<IndexPage> {
                     ),
                   ],
                 ),
-                Expanded(
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          children: <Widget>[
-                            CheckboxListTile(
-                                title: Text("video"),
-                                value: _video,
-                                activeColor: Colors.blue, //选中时的颜色
-                                onChanged: (value) {
-                                  setState(() {
-                                    _video = value;
-                                  });
-                                },
-                                controlAffinity:
-                                    ListTileControlAffinity.leading),
-                            CheckboxListTile(
-                                title: Text("audio"),
-                                value: _audio,
-                                activeColor: Colors.blue, //选中时的颜色
-                                onChanged: (value) {
-                                  setState(() {
-                                    _audio = value;
-                                  });
-                                },
-                                controlAffinity:
-                                    ListTileControlAffinity.leading),
-                            // CheckboxListTile(
-                            //     title: Text("screen"),
-                            //     value: _screen,
-                            //     activeColor: Colors.blue, //选中时的颜色
-                            //     onChanged: (value) {
-                            //       setState(() {
-                            //         _screen = value;
-                            //       });
-                            //     },
-                            //     controlAffinity:
-                            //         ListTileControlAffinity.leading)
-                          ],
-                        ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          CheckboxListTile(
+                              title: Text("video"),
+                              value: _video,
+                              activeColor: Colors.blue, //选中时的颜色
+                              onChanged: (value) {
+                                setState(() {
+                                  _video = value;
+                                });
+                              },
+                              controlAffinity: ListTileControlAffinity.leading),
+                          CheckboxListTile(
+                              title: Text("audio"),
+                              value: _audio,
+                              activeColor: Colors.blue, //选中时的颜色
+                              onChanged: (value) {
+                                setState(() {
+                                  _audio = value;
+                                });
+                              },
+                              controlAffinity: ListTileControlAffinity.leading),
+                          // CheckboxListTile(
+                          //     title: Text("screen"),
+                          //     value: _screen,
+                          //     activeColor: Colors.blue, //选中时的颜色
+                          //     onChanged: (value) {
+                          //       setState(() {
+                          //         _screen = value;
+                          //       });
+                          //     },
+                          //     controlAffinity:
+                          //         ListTileControlAffinity.leading)
+                        ],
                       ),
-                      Expanded(
-                          child: Column(children: <Widget>[
-                        RadioListTile(
-                          title: const Text('240p'),
-                          value: "240p",
-                          groupValue: _profile,
-                          onChanged: (String value) {
-                            setState(() {
-                              _profile = value;
-                            });
-                          },
-                        ),
-                        RadioListTile(
-                          title: const Text('360p'),
-                          value: "360p",
-                          groupValue: _profile,
-                          onChanged: (String value) {
-                            setState(() {
-                              _profile = value;
-                            });
-                          },
-                        ),
-                        RadioListTile(
-                          title: const Text('480p'),
-                          value: "480p",
-                          groupValue: _profile,
-                          onChanged: (String value) {
-                            setState(() {
-                              _profile = value;
-                            });
-                          },
-                        ),
-                        RadioListTile(
-                          title: const Text('720p'),
-                          value: "720p",
-                          groupValue: _profile,
-                          onChanged: (String value) {
-                            setState(() {
-                              _profile = value;
-                            });
-                          },
-                        ),
-                      ])),
-                    ],
-                  ),
+                    ),
+                    Expanded(
+                        child: Column(children: <Widget>[
+                      RadioListTile(
+                        title: const Text('240p'),
+                        value: "240p",
+                        groupValue: _profile,
+                        onChanged: (String value) {
+                          setState(() {
+                            _profile = value;
+                          });
+                        },
+                      ),
+                      RadioListTile(
+                        title: const Text('360p'),
+                        value: "360p",
+                        groupValue: _profile,
+                        onChanged: (String value) {
+                          setState(() {
+                            _profile = value;
+                          });
+                        },
+                      ),
+                      RadioListTile(
+                        title: const Text('480p'),
+                        value: "480p",
+                        groupValue: _profile,
+                        onChanged: (String value) {
+                          setState(() {
+                            _profile = value;
+                          });
+                        },
+                      ),
+                      RadioListTile(
+                        title: const Text('720p'),
+                        value: "720p",
+                        groupValue: _profile,
+                        onChanged: (String value) {
+                          setState(() {
+                            _profile = value;
+                          });
+                        },
+                      ),
+                    ])),
+                  ],
                 ),
               ],
             )),
