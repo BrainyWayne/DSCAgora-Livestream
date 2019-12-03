@@ -39,14 +39,15 @@ class _HomeState extends State<Home> {
                 ),
               ),
               IconButton(
+                onPressed: () {},
                 icon: loggedin
                     ? Icon(
                         Icons.account_circle,
                         color: fadedBlack,
                       )
                     : CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          'https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_1280.png',
+                        backgroundImage: AssetImage(
+                          'assets/images/avatar.png',
                         ),
                       ),
               ),
