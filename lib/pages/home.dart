@@ -64,11 +64,15 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Positioned(
                 right: -40,
-                top: -20,
+                top: -80,
                 child: Container(
                   alignment: Alignment.topRight,
-
-                  child: Image.asset("assets/images/dsclogo.png", width: 300, height: 300, fit: BoxFit.cover,),
+                  child: Image.asset(
+                    "assets/images/dsclogo.png",
+                    width: 300,
+                    height: 300,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
               Container(

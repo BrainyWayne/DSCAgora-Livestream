@@ -1,4 +1,5 @@
 import 'package:agora_flutter_webrtc_quickstart/routes.dart';
+import './theme.dart';
 import 'package:flutter/material.dart';
 import 'pages/entry.dart';
 
@@ -10,9 +11,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'DSC',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      debugShowCheckedModeBanner: false,
+      theme: lightTheme,
       onGenerateRoute: Router.generateRoutes,
     );
   }
