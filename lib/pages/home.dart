@@ -107,19 +107,7 @@ class _HomeState extends State<Home> {
                     ),
                     Stack(
                       children: <Widget>[
-                        Container(
-                          height: 20,
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              gradient: LinearGradient(colors: [
-                                Colors.red,
-                                Colors.red,
-                                Colors.green,
-                                Colors.blue,
-                                Colors.blue
-                              ])),
-                        ),
+
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 20),
                           height: 240,
@@ -127,6 +115,7 @@ class _HomeState extends State<Home> {
                           child: PageView(
                             controller: pageController,
                             children: <Widget>[
+
                               InkWell(
                                 child: buildCard(
                                   title: "DSC Support",
