@@ -20,7 +20,7 @@ class IndexState extends State<IndexPage> {
   bool _audio = true;
   bool _screen = false;
   String _profile = "480p";
-  final String _appId = "e7699cd7f23042ad86c214aee299a477";
+  final String _appId = "";
 
   String _codec = "h264";
   String _mode = "live";
