@@ -1,6 +1,7 @@
 import 'package:agora_flutter_webrtc_quickstart/theme.dart';
 import 'package:flutter/material.dart';
 import 'call.dart';
+import 'package:agora_flutter_webrtc_quickstart/agoraappid.dart';
 
 class IndexPage extends StatefulWidget {
   final String channelName;
@@ -20,7 +21,7 @@ class IndexState extends State<IndexPage> {
   bool _audio = true;
   bool _screen = false;
   String _profile = "480p";
-  final String _appId = "";
+  final String _appId = AgoraAppId.agoraappid;
 
   String _codec = "h264";
   String _mode = "live";
