@@ -14,7 +14,7 @@ class CallPage extends StatefulWidget {
   final String height;
   final String framerate;
   final String codec;
-  final String mode;  
+  final String mode;
 
   CallPage({
     this.appId,
@@ -49,6 +49,7 @@ class CallPage extends StatefulWidget {
 }
 
 class CallPageState extends State<CallPage> {
+  GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
   String appId;
   String channel;
   bool video;
@@ -89,8 +90,7 @@ class CallPageState extends State<CallPage> {
   });
 
   void startShareScreen(String cname) async {
-    shareScreenClient = AgoraClient(
-        appId: appId, mode: mode, codec: codec);
+    shareScreenClient = AgoraClient(appId: appId, mode: mode, codec: codec);
 
     await shareScreenClient.join(null, cname, 1);
     shareScreenStream = AgoraStream.createStream(
@@ -120,8 +120,7 @@ class CallPageState extends State<CallPage> {
     remoteStreams = new List<AgoraStream>();
     allStreams = new List<AgoraStream>();
 
-    agoraClient = AgoraClient(
-        appId: appId, mode: mode, codec: codec);
+    agoraClient = AgoraClient(appId: appId, mode: mode, codec: codec);
 
     agoraClient.on("peer-leave", (evt) async {
       var uid = evt["uid"];
@@ -129,7 +128,7 @@ class CallPageState extends State<CallPage> {
         return stream.getId() == uid;
       }, orElse: () {});
 
-      if(stream == null) {
+      if (stream == null) {
         return;
       }
       setState(() {
@@ -140,6 +139,13 @@ class CallPageState extends State<CallPage> {
 
     agoraClient.on("connection-state-change", (evt) async {
       print("state change from ${evt['prvState']} to ${evt['curState']}");
+      _globalKey.currentState.showSnackBar(SnackBar(
+        content: Text(evt['prvState'] ?? evt['curState']),
+        action: SnackBarAction(
+          label: 'Close',
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ));
     });
 
     agoraClient.on("stream-removed", (evt) async {
@@ -176,7 +182,7 @@ class CallPageState extends State<CallPage> {
         stream.setVideoProfile(profile);
       }
 
-      await stream.init();  
+      await stream.init();
       localStreams.add(stream);
       await stream.play();
       setState(() {
@@ -223,6 +229,7 @@ class CallPageState extends State<CallPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _globalKey,
         // appBar: AppBar(
         //   title: Text('In Call'),
         // ),
@@ -239,7 +246,17 @@ class CallPageState extends State<CallPage> {
                     height: MediaQuery.of(context).size.height,
                     child: (mainStream != null && mainStream.isPlaying())
                         ? AgoraVideoView(mainStream)
-                        : null,
+                        : Center(
+                            child: Container(
+                              constraints: BoxConstraints(
+                                minHeight: 50,
+                                maxWidth: 50,
+                                minWidth: 50,
+                                maxHeight: 50,
+                              ),
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
                     decoration: BoxDecoration(color: Colors.black54),
                   );
                 }),
@@ -387,6 +404,7 @@ class CallPageState extends State<CallPage> {
         ),
         endDrawer: Drawer(
           child: Container(
+              padding: EdgeInsets.only(top: 50),
               child: ListView.builder(
                   itemCount: remoteStreams.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -441,7 +459,7 @@ class CallPageState extends State<CallPage> {
                                 },
                               ),
                               FlatButton(
-                                color: Colors.blue,
+                                color: Theme.of(context).primaryColor,
                                 textColor: Colors.white,
                                 onPressed: () async {
                                   if (stream.hasSubscribed) {

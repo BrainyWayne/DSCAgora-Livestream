@@ -81,7 +81,7 @@ class _LoginState extends State<Login> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                color: Theme.of(context).accentColor,
+                                color: Theme.of(context).primaryColor,
                                 child: Text(
                                   'continue'.toUpperCase(),
                                   style: TextStyle(
@@ -89,10 +89,8 @@ class _LoginState extends State<Login> {
                                       fontSize: 15,
                                       letterSpacing: 1),
                                 ),
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pushReplacementNamed('/home');
-                                },
+                                onPressed: () => Navigator.of(context)
+                                    .pushReplacementNamed('/home'),
                               ),
                             ),
                           SizedBox(height: 10),
@@ -174,19 +172,18 @@ class _LoginState extends State<Login> {
   _signInWithGoogle(BuildContext context) {}
 }
 
+Future<FirebaseUser> googleSignIn() async {
+  // GoogleSignInAccount googleUser = await .signIn();
+  // GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+  // FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  // final AuthCredential _credential = GoogleAuthProvider.getCredential(
+  //   accessToken: googleAuth.accessToken,
+  //   idToken: googleAuth.idToken,
+  // );
 
-  Future<FirebaseUser> googleSignIn() async {
-    // GoogleSignInAccount googleUser = await .signIn();
-    // GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    // FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-    // final AuthCredential _credential = GoogleAuthProvider.getCredential(
-    //   accessToken: googleAuth.accessToken,
-    //   idToken: googleAuth.idToken,
-    // );
+  // AuthResult firebaseUser =
+  //     await _firebaseAuth.signInWithCredential(_credential);
 
-    // AuthResult firebaseUser =
-    //     await _firebaseAuth.signInWithCredential(_credential);
-
-    // // await _dbService.saveDeviceToken();
-    // return firebaseUser.user;
-  }
+  // // await _dbService.saveDeviceToken();
+  // return firebaseUser.user;
+}

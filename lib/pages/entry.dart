@@ -21,7 +21,7 @@ class IndexState extends State<IndexPage> {
   bool _audio = true;
   bool _screen = false;
   String _profile = "480p";
-  final String _appId = AgoraAppId.agoraappid;
+  final String _appId = AgoraAppId.id;
 
   String _codec = "h264";
   String _mode = "live";
@@ -66,28 +66,21 @@ class IndexState extends State<IndexPage> {
                           Navigator.pushNamed(context, '/settings'),
                     ),
                   ),
-                  SizedBox(height: 50),
+                  SizedBox(height: 40),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 50),
+                    padding: EdgeInsets.symmetric(vertical: 40),
                     child: Column(
                       children: <Widget>[
                         Text(
                           "Join a Group",
                           style: TextStyle(
-                              fontSize: 34.0,
+                              fontSize: 40.0,
                               fontWeight: FontWeight.w900,
                               color: fadedBlack
                               // fontFamily: "Georgia",
                               ),
                         ),
                         SizedBox(height: 5),
-                        Text(
-                          "New one is created if group does not exist",
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: greyText,
-                          ),
-                        )
                       ],
                     ),
                   ),
@@ -103,6 +96,18 @@ class IndexState extends State<IndexPage> {
                                 borderSide: BorderSide(width: 1)),
                             hintText: 'Channel name'),
                       ),
+                      Container(
+                        padding: EdgeInsets.all(3),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "New one is created if group does not exist",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: 11.0,
+                            color: greyText,
+                          ),
+                        ),
+                      ),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 20),
                         child: Row(
@@ -111,8 +116,12 @@ class IndexState extends State<IndexPage> {
                               child: RaisedButton(
                                 onPressed: () => onJoin(),
                                 child: Text("Join"),
-                                color: Colors.blueAccent,
+                                color: Theme.of(context).primaryColor,
                                 textColor: Colors.white,
+                                padding: EdgeInsets.all(15),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
                               ),
                             )
                           ],
@@ -128,7 +137,7 @@ class IndexState extends State<IndexPage> {
                             CheckboxListTile(
                                 title: Text("video"),
                                 value: _video,
-                                activeColor: Colors.blue, //选中时的颜色
+                                activeColor: Theme.of(context).accentColor,
                                 onChanged: (value) {
                                   setState(() {
                                     _video = value;
@@ -139,7 +148,7 @@ class IndexState extends State<IndexPage> {
                             CheckboxListTile(
                                 title: Text("audio"),
                                 value: _audio,
-                                activeColor: Colors.blue, //选中时的颜色
+                                activeColor: Theme.of(context).accentColor,
                                 onChanged: (value) {
                                   setState(() {
                                     _audio = value;
@@ -147,17 +156,17 @@ class IndexState extends State<IndexPage> {
                                 },
                                 controlAffinity:
                                     ListTileControlAffinity.leading),
-                            // CheckboxListTile(
-                            //     title: Text("screen"),
-                            //     value: _screen,
-                            //     activeColor: Colors.blue, //选中时的颜色
-                            //     onChanged: (value) {
-                            //       setState(() {
-                            //         _screen = value;
-                            //       });
-                            //     },
-                            //     controlAffinity:
-                            //         ListTileControlAffinity.leading)
+                            CheckboxListTile(
+                                title: Text("screen"),
+                                value: _screen,
+                                activeColor: Theme.of(context).accentColor,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _screen = value;
+                                  });
+                                },
+                                controlAffinity:
+                                    ListTileControlAffinity.leading)
                           ],
                         ),
                       ),
@@ -231,9 +240,9 @@ class IndexState extends State<IndexPage> {
                     audio: _audio,
                     screen: _screen,
                     profile: _profile,
-                    width: '_widthController.text',
-                    height: '_heightController.text',
-                    framerate: '_frameRateController.text',
+                    width: '',
+                    height: '',
+                    framerate: '',
                     codec: _codec,
                     mode: _mode,
                   )));

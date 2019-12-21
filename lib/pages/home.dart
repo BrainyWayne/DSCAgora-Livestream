@@ -21,6 +21,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           Navigator.pushNamed(context, '/index');
         },
@@ -58,107 +59,156 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: SingleChildScrollView(
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-                right: -40,
-                top: -80,
-                child: Container(
-                  alignment: Alignment.topRight,
-                  child: Image.asset(
-                    "assets/images/dsclogo.png",
-                    width: 300,
-                    height: 300,
+      body: SafeArea(
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: SingleChildScrollView(
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  right: -40,
+                  top: -80,
+                  child: Container(
+                    alignment: Alignment.topRight,
+                    child: Image.asset(
+                      "assets/images/dsclogo.png",
+                      width: 300,
+                      height: 300,
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.only(top: 120),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(top: 10, left: 20),
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'DSC KNUST',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 30,
-                                color: fadedBlack),
-                          ),
-                          Text(
-                            'Live Streaming',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: Colors.grey,
+                Container(
+                  padding: EdgeInsets.only(top: 120),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(top: 10, left: 20),
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'DSC KNUST',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 30,
+                                  color: fadedBlack),
+                            ),
+                            Text(
+                              'Live Streaming',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Stack(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.symmetric(vertical: 20),
+                            height: 240,
+                            width: double.infinity,
+                            child: PageView(
+                              controller: pageController,
+                              children: <Widget>[
+                                InkWell(
+                                  child: buildCard(
+                                    title: "DSC Support",
+                                    icon: Icons.help,
+                                    cardColor: Colors.red[600],
+                                  ),
+                                  onTap: () {
+                                    Navigator.pushNamed(context, "/index",
+                                        arguments: Constants.DSCSUPPORT);
+                                  },
+                                ),
+                                InkWell(
+                                  child: buildCard(
+                                    title: "DSC Core Team",
+                                    icon: Icons.group,
+                                    cardColor: Colors.green[600],
+                                  ),
+                                  onTap: () {
+                                    Navigator.pushNamed(context, "/index",
+                                        arguments: Constants.CORE_TEAM_CHANNEL);
+                                  },
+                                ),
+                                InkWell(
+                                  child: buildCard(
+                                    title: "Agora Support",
+                                    icon: Icons.headset_mic,
+                                    cardColor: Colors.blue[600],
+                                  ),
+                                  onTap: () {
+                                    Navigator.pushNamed(context, "/index",
+                                        arguments: Constants.AGORASUPPORT);
+                                  },
+                                ),
+                              ],
                             ),
                           )
                         ],
+                        alignment: Alignment.center,
                       ),
-                    ),
-                    Stack(
-                      children: <Widget>[
-
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 20),
-                          height: 240,
-                          width: double.infinity,
-                          child: PageView(
-                            controller: pageController,
-                            children: <Widget>[
-
-                              InkWell(
-                                child: buildCard(
-                                  title: "DSC Support",
-                                  icon: Icons.help,
-                                  cardColor: Colors.red[600],
-                                ),
-                                onTap: () {
-                                  Navigator.pushNamed(context, "/index",
-                                      arguments: Constants.DSCSUPPORT);
-                                },
-                              ),
-                              InkWell(
-                                child: buildCard(
-                                  title: "DSC Core Team",
-                                  icon: Icons.group,
-                                  cardColor: Colors.green[600],
-                                ),
-                                onTap: () {
-                                  Navigator.pushNamed(context, "/index",
-                                      arguments: Constants.CORE_TEAM_CHANNEL);
-                                },
-                              ),
-                              InkWell(
-                                child: buildCard(
-                                  title: "Agora Support",
-                                  icon: Icons.headset_mic,
-                                  cardColor: Colors.blue[600],
-                                ),
-                                onTap: () {
-                                  Navigator.pushNamed(context, "/index",
-                                      arguments: Constants.AGORASUPPORT);
-                                },
-                              ),
-                            ],
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.only(left: 20, top: 10),
+                        child: Text(
+                          'History',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize:
+                                Theme.of(context).textTheme.headline.fontSize,
+                            color: fadedBlack,
                           ),
-                        )
-                      ],
-                      alignment: Alignment.center,
-                    )
-                  ],
-                ),
-              )
-            ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 10, left: 20, right: 10),
+                        child: Column(
+                          children: <Widget>[
+                            Card(
+                              child: ListTile(
+                                leading: Icon(Icons.call, color: Colors.green),
+                                title: Text(
+                                  'DSC Core Team',
+                                  style: TextStyle(color: fadedBlack),
+                                ),
+                              ),
+                            ),
+                            Card(
+                              child: ListTile(
+                                leading:
+                                    Icon(Icons.video_call, color: Colors.green),
+                                title: Text(
+                                  'Agora Support',
+                                  style: TextStyle(color: fadedBlack),
+                                ),
+                              ),
+                            ),
+                            Card(
+                              child: ListTile(
+                                leading:
+                                    Icon(Icons.video_call, color: Colors.green),
+                                title: Text(
+                                  'DSC Support',
+                                  style: TextStyle(color: fadedBlack),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
