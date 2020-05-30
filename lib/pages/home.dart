@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
                   child: Container(
                     alignment: Alignment.topRight,
                     child: Image.asset(
-                      "assets/images/dsclogo.png",
+                      "assets/images/logo.png",
                       width: 300,
                       height: 300,
                     ),

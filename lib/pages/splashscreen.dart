@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:agora_flutter_webrtc_quickstart/pages/homescreen.dart';
+import 'package:agora_flutter_webrtc_quickstart/services/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'home.dart';
 import 'login.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,7 +18,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
 
-    loadTimer();
+    Timer(
+        Duration(seconds: 3),
+            () =>  checkUser());
+
 
 
     super.initState();
@@ -31,18 +37,33 @@ class _SplashScreenState extends State<SplashScreen> {
             padding: const EdgeInsets.all(50.0),
             child: Image(
               fit: BoxFit.contain,
-              image: AssetImage('assets/images/dsc.jpeg'),
+              image: AssetImage('assets/images/technology1.png'),
             ),
           ),
       ),
     );
   }
 
-  void loadTimer() {
-    Timer(
-        Duration(seconds: 3),
-            () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => Login())));
+
+  void checkUser() {
+    Auth _auth = new Auth();
+    _auth.getCurrentUser().then((onValue) {
+      if (onValue != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => HomeScreen(),
+          ),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => Login(),
+          ),
+        );
+      }
+    });
   }
 
 }

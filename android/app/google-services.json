@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "756234356748",
+    "firebase_url": "https://dscagora.firebaseio.com",
+    "project_id": "dscagora",
+    "storage_bucket": "dscagora.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756234356748:android:fa24ea3b2b1b17ecdd8629",
+        "android_client_info": {
+          "package_name": "com.dsc.agora.livestream"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "756234356748-j6uu075ve2814psp3ucb34qvuqul9knk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8ViYvMS3agkJOG-7Bgno1cUo5mIftj6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "756234356748-j6uu075ve2814psp3ucb34qvuqul9knk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
