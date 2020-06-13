@@ -2,6 +2,7 @@ import 'file:///D:/Mobile%20App%20Development/DSCAgora-Livestream/lib/pages/Vide
 import 'package:agora_flutter_webrtc_quickstart/pages/getstarted/getstartedpageview.dart';
 import 'package:agora_flutter_webrtc_quickstart/pages/profile.dart';
 import 'package:agora_flutter_webrtc_quickstart/pages/videobroadcasting/index.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/whiteboard/whiteboard.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -76,16 +78,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 10,
                     ),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (BuildContext context) => Profile()));
                       },
                       child: Container(
-                        decoration: BoxDecoration(
-
-                        ),
+                        decoration: BoxDecoration(),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -129,7 +129,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-
                     SizedBox(
                       height: 20,
                     ),
@@ -208,8 +207,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: Hero(
                                           tag: "image",
                                           child: Image.asset(
-                                        "assets/images/radio.png",
-                                      ))),
+                                            "assets/images/radio.png",
+                                          ))),
                                   backgroundColor: Colors.white,
                                   radius: 25,
                                 ),
@@ -233,6 +232,59 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    WhiteBoard()));
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(15),
+                        width: MediaQuery.of(context).size.width,
+                        height: 180,
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [Colors.blueAccent, Colors.green],
+                            ),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            CircleAvatar(
+                              child: Container(
+                                  padding: EdgeInsets.all(3),
+                                  child: Hero(
+                                    tag: "image2",
+                                    child:
+                                        Image.asset("assets/images/board.png"),
+                                  )),
+                              backgroundColor: Colors.white,
+                              radius: 25,
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Text(
+                              "Sketch with the offline",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Flexible(
+                                child: Text(
+                              "Whiteboard",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold),
+                            ))
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
