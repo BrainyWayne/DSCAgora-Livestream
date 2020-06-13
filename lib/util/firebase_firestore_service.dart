@@ -47,22 +47,7 @@ class FirebaseFirestoreService {
     return snapshots;
   }
  
-  Future<dynamic> updateFavoritesModel(FavoritesModel favoritesModel) async {
-    final TransactionHandler updateTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(favoritesModelCollection.document(FavoritesModel.id));
- 
-      await tx.update(ds.reference, favoritesModel.toMap());
-      return {'updated': true};
-    };
- 
-    return Firestore.instance
-        .runTransaction(updateTransaction)
-        .then((result) => result['updated'])
-        .catchError((error) {
-      print('error: $error');
-      return false;
-    });
-  }
+
  
   Future<dynamic> deleteFavoritesModel(String id) async {
     final TransactionHandler deleteTransaction = (Transaction tx) async {

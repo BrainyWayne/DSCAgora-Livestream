@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:agora_flutter_webrtc_quickstart/pages/entry.dart';
+import 'file:///D:/Mobile%20App%20Development/DSCAgora-Livestream/lib/pages/VideoCalling/entry.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/homescreen.dart';
 import 'package:agora_flutter_webrtc_quickstart/pages/signup.dart';
 import 'package:agora_flutter_webrtc_quickstart/services/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +131,7 @@ class _LoginState extends State<Login> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                                Home()));
+                                                HomeScreen()));
                                   }
                                 });
                               }

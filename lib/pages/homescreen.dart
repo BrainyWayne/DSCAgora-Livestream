@@ -1,6 +1,7 @@
-import 'package:agora_flutter_webrtc_quickstart/pages/entry.dart';
+import 'file:///D:/Mobile%20App%20Development/DSCAgora-Livestream/lib/pages/VideoCalling/entry.dart';
 import 'package:agora_flutter_webrtc_quickstart/pages/getstarted/getstartedpageview.dart';
 import 'package:agora_flutter_webrtc_quickstart/pages/profile.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/videobroadcasting/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,13 +17,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   SharedPreferences sharedPreferences;
-  String history;
-  double visible;
-  String username;
-  String email;
-  String photoUrl;
-  String number;
-  String type;
+  String history = "";
+  double visible = 0.0;
+  String username = "";
+  String email = "";
+  String photoUrl = "";
+  String number = "";
+  String type = "";
   bool alreadyStarted = true;
 
   @override
@@ -36,342 +37,462 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Container(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 24),
-        child: ListView(
-          physics: BouncingScrollPhysics(),
-          children: <Widget>[
-            Text(
-              type.toUpperCase(),
-              style: TextStyle(letterSpacing: 2),
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          title: Text(
+            "Stream",
+            style: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),
+          ),
+          leading: Container(
+            child: Icon(
+              Icons.menu,
+              color: Colors.black,
             ),
-            Row(
-              children: <Widget>[
-                Text(
-                  "Stream",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30),
-                ),
-                Spacer(),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 7),
-                  decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.4),
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(
-                        Icons.search,
-                        color: Colors.black,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "Search",
-                        style: TextStyle(color: Colors.black),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => Profile()));
-              },
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.grey.withOpacity(0.4)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(150),
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      child: CachedNetworkImage(
-                        imageUrl: photoUrl,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                    Text(
-                      username,
-                      style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-                    ),
-                    Text(email),
-                    SizedBox(height: 10,)
-                  ],
-                ),
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Icon(
+                Icons.settings,
+                color: Colors.black,
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Visibility(
-              visible: alreadyStarted,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              GetStartedPageView()));
-                },
-                child: ClayContainer(
-                  curveType: CurveType.convex,
-                  customBorderRadius: BorderRadius.circular(20),
-                  child: Hero(
-                    tag: "getstarted",
-                    child: Container(
-                      height: 250,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [Colors.blue, Colors.blue]),
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Stack(
-                        children: <Widget>[
-                          Positioned(
-                            child: Image.asset(
-                              "assets/images/technology.png",
-                              height: 200,
-                              width: 200,
-                            ),
-                            bottom: 15,
-                            right: 15,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.redAccent.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(20)),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                top: 30, left: 25, right: 15, bottom: 10),
-                            child: Column(
+            )
+          ],
+        ),
+        body: Container(
+          child: ListView(
+            physics: BouncingScrollPhysics(),
+            children: <Widget>[
+              //Top white part
+              Container(
+                padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 10,
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => Profile()));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  "Get \nStarted",
+                                  username,
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 30,
+                                      fontSize: 23,
                                       fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(email),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  type,
+                                ),
+                              ],
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 15),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(150),
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  child: CachedNetworkImage(
+                                    imageUrl: photoUrl,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        IndexPage()));
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(15),
+                            width: MediaQuery.of(context).size.width * 0.43,
+                            height: 180,
+                            decoration: BoxDecoration(
+                                color: Colors.blueAccent,
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                CircleAvatar(
+                                  child: Container(
+                                      padding: EdgeInsets.all(3),
+                                      child: Hero(
+                                        tag: "image0",
+                                        child: Image.asset(
+                                            "assets/images/meeting.png"),
+                                      )),
+                                  backgroundColor: Colors.white,
+                                  radius: 25,
                                 ),
                                 SizedBox(
                                   height: 15,
                                 ),
                                 Text(
-                                  "Set up your streaming experience",
+                                  "Start or join a",
                                   style: TextStyle(color: Colors.white),
                                 ),
-                                SizedBox(
-                                  height: 50,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 5),
-                                  decoration: BoxDecoration(
+                                Flexible(
+                                    child: Text(
+                                  "Video Meeting",
+                                  style: TextStyle(
                                       color: Colors.white,
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Text(
-                                        "Start",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Icon(Icons.chevron_right)
-                                    ],
-                                  ),
-                                )
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ))
                               ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        VideoBroadcastingIndexPage()));
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(15),
+                            width: MediaQuery.of(context).size.width * 0.43,
+                            height: 180,
+                            decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                CircleAvatar(
+                                  child: Container(
+                                      padding: EdgeInsets.all(3),
+                                      child: Hero(
+                                          tag: "image",
+                                          child: Image.asset(
+                                        "assets/images/radio.png",
+                                      ))),
+                                  backgroundColor: Colors.white,
+                                  radius: 25,
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Text(
+                                  "Start or join a",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                Flexible(
+                                    child: Text(
+                                  "Video Broadcast",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ))
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              width: double.infinity,
-              height: 50,
-              decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(20)),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => IndexPage()));
-                },
-                child: Row(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      "Create or Join a Channel",
-                      style: TextStyle(
-                        color: Colors.black.withOpacity(0.5),
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Spacer(),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.8),
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(20),
-                              bottomRight: Radius.circular(20))),
-                      height: 50,
-                      width: 50,
-                      child: Icon(
-                        Icons.add_call,
-                        color: Colors.white,
-                      ),
-                    )
                   ],
                 ),
               ),
-            ),
-            Container(
-              height: visible,
-              width: double.infinity,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "Previous Channel Joined",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                      Spacer(),
-                      Icon(Icons.more_vert)
-                    ],
-                  ),
-                  GestureDetector(
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.black.withOpacity(0.1)),
-                      margin: EdgeInsets.only(left: 0, top: 10),
-                      width: double.infinity,
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            history,
-                            style: TextStyle(color: Colors.black, fontSize: 18),
-                          ),
-                          Spacer(),
-                          Icon(Icons.arrow_right)
-                        ],
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              IndexPage(channelName: history),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: <Widget>[
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  "Live now",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                ),
-                Spacer(),
-                Icon(Icons.more_vert)
-              ],
-            ),
-            Column(
-              children: <Widget>[
-                Stack(
+
+              //Bottom grey part
+              Container(
+                padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                color: Colors.grey.withOpacity(0.15),
+                child: Column(
                   children: <Widget>[
-                    Image.asset(
-                      "assets/images/live.png",
-                      height: 150,
-                      width: 150,
+                    Visibility(
+//                visible: alreadyStarted,
+                      visible: false,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      GetStartedPageView()));
+                        },
+                        child: ClayContainer(
+                          curveType: CurveType.convex,
+                          customBorderRadius: BorderRadius.circular(20),
+                          child: Hero(
+                            tag: "getstarted",
+                            child: Container(
+                              height: 250,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      colors: [Colors.blue, Colors.blue]),
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Stack(
+                                children: <Widget>[
+                                  Positioned(
+                                    child: Image.asset(
+                                      "assets/images/technology.png",
+                                      height: 200,
+                                      width: 200,
+                                    ),
+                                    bottom: 15,
+                                    right: 15,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color:
+                                            Colors.redAccent.withOpacity(0.5),
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                        top: 30,
+                                        left: 25,
+                                        right: 15,
+                                        bottom: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          "Get \nStarted",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text(
+                                          "Set up your streaming experience",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        SizedBox(
+                                          height: 50,
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 5),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              Text(
+                                                "Start",
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Icon(Icons.chevron_right)
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                     Container(
-                      color: Colors.white.withOpacity(0.5),
+                      height: visible,
+                      width: double.infinity,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           SizedBox(
-                            height: 15,
+                            height: 30,
                           ),
-                          Container(
-                            height: 150,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: Colors.yellowAccent.withOpacity(0.8),
-                                borderRadius: BorderRadius.circular(15)),
+                          Row(
+                            children: <Widget>[
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "Previous Channel",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17),
+                              ),
+                              Spacer(),
+                              Icon(Icons.more_vert)
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "Automatically saved channel",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          GestureDetector(
+                            child: ClayContainer(
+                              spread: 0,
+                              customBorderRadius: BorderRadius.circular(10),
+                              curveType: CurveType.convex,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 20),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white),
+                                margin: EdgeInsets.only(left: 0, top: 10),
+                                width: double.infinity,
+                                child: Row(
+                                  children: <Widget>[
+                                    Text(
+                                      history,
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 18),
+                                    ),
+                                    Spacer(),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 10),
+                                      decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: Text(
+                                        "Connect",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      IndexPage(channelName: history),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "Live now",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                        Spacer(),
+                        Icon(Icons.more_vert)
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Stack(
+                          children: <Widget>[
+                            Image.asset(
+                              "assets/images/live.png",
+                              height: 150,
+                              width: 150,
+                            ),
+                            Container(
+                              color: Colors.white.withOpacity(0.5),
+                              child: Column(
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Container(
+                                    height: 150,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                        color: Colors.yellowAccent
+                                            .withOpacity(0.8),
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        )
+                      ],
                     )
                   ],
-                )
-              ],
-            )
-          ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -392,7 +513,7 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     } else {
       setState(() {
-        visible = 120;
+        visible = 160;
         history = sharedPreferences.getString("channel");
       });
     }

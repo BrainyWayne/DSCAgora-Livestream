@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 import '../theme.dart';
-import 'entry.dart';
+import 'VideoCalling/entry.dart';
 
 class Home extends StatefulWidget {
   @override

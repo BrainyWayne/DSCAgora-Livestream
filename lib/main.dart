@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import './theme.dart';
 import 'package:flutter/material.dart';
-import 'pages/entry.dart';
+import 'pages/VideoCalling/entry.dart';
 
 void main() => runApp(new MyApp());
 
