@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:agora_flutter_webrtc/agora_client.dart';
 import 'package:agora_flutter_webrtc/agora_stream.dart';
 import 'package:agora_flutter_webrtc/agora_view.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/chat/chat_page.dart';
 import 'package:flutter/material.dart';
 
 class CallPage extends StatefulWidget {
@@ -17,6 +18,7 @@ class CallPage extends StatefulWidget {
   final String framerate;
   final String codec;
   final String mode;
+  final String username;
 
   CallPage({
     this.appId,
@@ -30,6 +32,7 @@ class CallPage extends StatefulWidget {
     this.framerate,
     this.codec,
     this.mode,
+    this.username
   });
 
   @override
@@ -63,6 +66,9 @@ class CallPageState extends State<CallPage> {
   String framerate;
   String codec;
   String mode;
+
+  double chatHeight = 0;
+  double leaveOpacity = 0;
 
   AgoraClient agoraClient;
   AgoraClient shareScreenClient;
@@ -368,15 +374,7 @@ class CallPageState extends State<CallPage> {
                                 ? 'unmute video'
                                 : 'mute video',
                             onPressed: () {
-                              if (mainStream.isVideoMuted) {
-                                setState(() {
-                                  mainStream.unmuteVideo();
-                                });
-                              } else {
-                                setState(() {
-                                  mainStream.muteVideo();
-                                });
-                              }
+
                             },
                           ),
                         ],
@@ -400,7 +398,169 @@ class CallPageState extends State<CallPage> {
                 top: 0,
                 width: MediaQuery.of(context).size.width * 0.6,
                 height: MediaQuery.of(context).size.height * 0.5,
+              ),
+              Positioned(
+                bottom: 50,
+                left: 0,
+                right: 0,
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.ease,
+                  height: chatHeight,
+                  width: double.infinity,
+                  child: ChatPage(
+                    groupId: widget.channel,
+                    userName: widget.username,
+                    groupName: widget.channel,),
+                ),
+              ),
+
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      SizedBox(width: 0,),
+                      Column(
+                        children: <Widget>[
+                          Icon(Icons.mic, size: 30,),
+                          Text("Mute")
+                        ],
+                      ),
+                      GestureDetector(
+
+
+                        child: Column(
+                          children: <Widget>[
+                           Icon(Icons.videocam, size: 30,),
+                            Text("Video")
+                          ],
+                        ),
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Icon(Icons.screen_share, size: 30, color: widget.screen == true ? Colors.green : Colors.black,),
+                          Text("Share", style: TextStyle(color: widget.screen == true ? Colors.green : Colors.black),)
+                        ],
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          if(chatHeight == 0){
+                            setState(() {
+                              chatHeight = 350;
+                            });
+                          } else if(chatHeight == 350){
+                            setState(() {
+                              chatHeight = 0;
+                            });
+                          }
+                        },
+                        child: Column(
+                          children: <Widget>[
+                            Icon(Icons.voice_chat, size: 30,),
+                            Text("Chat")
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          if(leaveOpacity == 0){
+                            setState(() {
+                              leaveOpacity = 1;
+                            });
+                          } else if(leaveOpacity == 1){
+                            setState(() {
+                              leaveOpacity = 0;
+                            });
+                          }
+                        },
+                        child: Column(
+                          children: <Widget>[
+                            Icon(Icons.cancel, size: 30, color: Colors.red,),
+                            Text("Leave", style: TextStyle(color: Colors.red),)
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 0,),
+                    ],
+                  ),
+                ),
+              ),
+
+              AnimatedOpacity(
+                duration: Duration(milliseconds: 200),
+                opacity: leaveOpacity,
+                child: Center(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Icon(Icons.cancel, color: Colors.red,),
+                        SizedBox(height: 20,),
+                        Text("Are you sure you want to leave this meeting?" ,style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),),
+                        SizedBox(height: 10,),
+                        Divider(
+                          thickness: 0.5,
+                          color: Colors.black,
+                        ),
+                        SizedBox(height: 10,),
+                        Row(
+                          children: <Widget>[
+                            Spacer(),
+                            SizedBox(width: 1,),
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.pop(context);
+                              },
+                              child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.red
+                                  ),
+                                  child: Text("Leave", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
+                              ),
+                            ),
+                            SizedBox(width: 20,),
+                            GestureDetector(
+                              onTap: (){
+                                setState(() {
+                                  leaveOpacity = 0;
+                                });
+                              },
+                              child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.red),
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white
+                                  ),
+                                  child: Text("Cancel", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),)
+                              ),
+                            ),
+                            SizedBox(width: 1,),
+                            Spacer(),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               )
+
             ],
           ),
         ),

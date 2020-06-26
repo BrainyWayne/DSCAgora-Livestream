@@ -1,5 +1,12 @@
 import 'file:///D:/Mobile%20App%20Development/DSCAgora-Livestream/lib/pages/VideoCalling/call.dart';
+import 'package:agora_flutter_webrtc_quickstart/agoraappid.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/chat/chat_page.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/whiteboard/whiteboard.dart';
+import 'package:agora_flutter_webrtc_quickstart/util/strings.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class VideoCallingPageView extends StatefulWidget {
   final String channel;
@@ -32,57 +39,105 @@ class VideoCallingPageView extends StatefulWidget {
   _VideoCallingPageViewState createState() => _VideoCallingPageViewState();
 }
 
+
+
 class _VideoCallingPageViewState extends State<VideoCallingPageView> {
+
+  SharedPreferences sharedPreferences;
+  String username;
+  String email;
+  String photoUrl;
+  String residence;
+  String number;
+  String occupation;
+  String house;
+  String yearGroup;
+  String type;
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    getUserInfo();
+    getUserCache();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height * 0.95,
-            child: PageView(
-              children: <Widget>[
-//                CallPage(
-//                  appId: widget.appId,
-//                  channel: widget.channel,
-//                  video: widget.video,
-//                  audio: widget.audio,
-//                  screen: widget.screen,
-//                  profile: widget.profile,
-//                  width: '',
-//                  height: '',
-//                  framerate: '',
-//                  codec: widget.codec,
-//                  mode: widget.mode,
-//                ),
-
-              Container(
-                color: Colors.red,
-              )
-
-              ],
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Material(
+      child: Container(
+        child: Stack(
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height,
+              child: PageView(
                 children: <Widget>[
-                  SizedBox(width: 10,),
-                  CircleAvatar(child: Icon(Icons.chat)),
-                  CircleAvatar(child: Icon(Icons.view_headline)),
-                  SizedBox(width: 10,),
+                  CallPage(
+                    appId: AgoraAppId.id,
+                    channel: widget.channel,
+                    video: widget.video,
+                    audio: widget.audio,
+                    screen: widget.screen,
+                    profile: widget.profile,
+                    width: '',
+                    height: '',
+                    framerate: '',
+                    codec: widget.codec,
+                    mode: widget.mode,
+                    username: username,
+                  ),
+
+
+                  WhiteBoard()
+
                 ],
               ),
             ),
-          )
-        ],
+
+
+
+          ],
+        ),
       ),
     );
+  }
+
+  Future<void> getUserCache() async {
+     sharedPreferences = await SharedPreferences.getInstance();
+     username = sharedPreferences.getString(ConstantString.USERNAME);
+
+  }
+
+  Future<void> getUserInfo() async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    DocumentReference documentReference =
+    Firestore.instance.collection('users').document(user.uid);
+
+    documentReference.get().then((datasnapshot) {
+      if (datasnapshot.exists) {
+        print(datasnapshot.data['email'].toString());
+        print(datasnapshot.data['name'].toString());
+        print(datasnapshot.data['residence'].toString());
+        var photolink;
+        try {
+          photolink = datasnapshot.data['photo'].toString();
+        } catch (e) {
+          photoUrl = "N/A";
+        }
+
+        setState(() {
+          username = datasnapshot.data['name'].toString();
+          email = datasnapshot.data['email'].toString();
+          photoUrl = photolink;
+          residence = datasnapshot.data['residence'].toString();
+          occupation = datasnapshot.data['occupation'].toString();
+          number = datasnapshot.data['phone'].toString();
+          yearGroup = datasnapshot.data['yeargroup'].toString();
+          house = datasnapshot.data['house'].toString();
+          type = datasnapshot.data['type'].toString();
+        });
+      }
+    });
   }
 }

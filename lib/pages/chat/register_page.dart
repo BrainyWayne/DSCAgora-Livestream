@@ -1,10 +1,11 @@
+import 'package:agora_flutter_webrtc_quickstart/helper/helper_functions.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/chat/home_page.dart';
+import 'package:agora_flutter_webrtc_quickstart/services/auth_service.dart';
+import 'package:agora_flutter_webrtc_quickstart/shared/constants.dart';
+import 'package:agora_flutter_webrtc_quickstart/shared/loading.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:group_chat_app/helper/helper_functions.dart';
-import 'package:group_chat_app/pages/home_page.dart';
-import 'package:group_chat_app/services/auth_service.dart';
-import 'package:group_chat_app/shared/constants.dart';
-import 'package:group_chat_app/shared/loading.dart';
+
 
 class RegisterPage extends StatefulWidget {
   final Function toggleView;

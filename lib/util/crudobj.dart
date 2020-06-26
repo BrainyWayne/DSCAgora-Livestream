@@ -14,10 +14,10 @@ class CRUDMethods {
 
   FirebaseUser user;
 
-  Future<void> addData(postData) async {
+  Future<void> addScheduleData(postData) async {
      user = await FirebaseAuth.instance.currentUser();
     if (isLoggedIn()) {
-      Firestore.instance.collection('posts').add(postData).catchError((e) {
+      Firestore.instance.collection('users').document(user.uid).collection("schedules").add(postData).catchError((e) {
          print(e);
        });
     } else {
@@ -25,7 +25,7 @@ class CRUDMethods {
     }
   }
 
-  getData() async {
-    return await Firestore.instance.collection('posts').getDocuments();
+  getScheduleData() async {
+    return await  Firestore.instance.collection('users').document(user.uid).collection("schedules").getDocuments();
   }
 }

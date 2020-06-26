@@ -1,5 +1,5 @@
+import 'package:agora_flutter_webrtc_quickstart/pages/chat/chat_page.dart';
 import 'package:flutter/material.dart';
-import 'package:group_chat_app/pages/chat_page.dart';
 
 class GroupTile extends StatelessWidget {
   final String userName;

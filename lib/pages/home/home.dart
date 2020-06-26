@@ -1,254 +1,451 @@
-import 'package:agora_flutter_webrtc_quickstart/constants.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/videobroadcasting/index.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/whiteboard/whiteboard.dart';
+import 'package:agora_flutter_webrtc_quickstart/util/strings.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:clay_containers/constants.dart';
+import 'package:clay_containers/widgets/clay_containers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../theme.dart';
-import 'VideoCalling/entry.dart';
+import '../VideoCalling/entry.dart';
+import '../getstarted/getstartedpageview.dart';
 
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
+String history = "";
+double visible = 0.0;
+String username = "";
+String email = "";
+String photoUrl = "";
+String number = "";
+String type = "";
+bool alreadyStarted = true;
+FirebaseUser publicuser;
+
 class _HomeState extends State<Home> {
-  PageController pageController =
-      new PageController(viewportFraction: 0.5, initialPage: 1);
+  SharedPreferences sharedPreferences;
+
+
+
+  @override
+  void initState() {
+    history = "nada";
+    getHistory();
+    getUserInfo();
+    cacheUserInformation();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var loggedin = false;
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
-        onPressed: () {
-          Navigator.pushNamed(context, '/index');
-        },
-        child: Icon(Icons.video_call),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        // color: Colors.indigoAccent[100],
-        shape: CircularNotchedRectangle(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                onPressed: () => Navigator.pushNamed(context, '/settings'),
-                icon: Icon(
-                  Icons.settings,
-                  color: fadedBlack,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: loggedin
-                    ? Icon(
-                        Icons.account_circle,
-                        color: fadedBlack,
-                      )
-                    : CircleAvatar(
-                        backgroundImage: AssetImage(
-                          'assets/images/avatar.png',
-                        ),
-                      ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      body: SafeArea(
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          child: SingleChildScrollView(
-            child: Stack(
+    return Container(
+      child: ListView(
+        physics: BouncingScrollPhysics(),
+        children: <Widget>[
+
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            child: Row(
               children: <Widget>[
-                Positioned(
-                  right: -40,
-                  top: -80,
-                  child: Container(
-                    alignment: Alignment.topRight,
-                    child: Image.asset(
-                      "assets/images/logo.png",
-                      width: 300,
-                      height: 300,
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 120),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.only(top: 10, left: 20),
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'DSC KNUST',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 30,
-                                  color: fadedBlack),
-                            ),
-                            Text(
-                              'Live Streaming',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Stack(
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.symmetric(vertical: 20),
-                            height: 240,
-                            width: double.infinity,
-                            child: PageView(
-                              controller: pageController,
-                              children: <Widget>[
-                                InkWell(
-                                  child: buildCard(
-                                    title: "DSC Support",
-                                    icon: Icons.help,
-                                    cardColor: Colors.red[600],
-                                  ),
-                                  onTap: () {
-                                    Navigator.pushNamed(context, "/index",
-                                        arguments: Constants.DSCSUPPORT);
-                                  },
-                                ),
-                                InkWell(
-                                  child: buildCard(
-                                    title: "DSC Core Team",
-                                    icon: Icons.group,
-                                    cardColor: Colors.green[600],
-                                  ),
-                                  onTap: () {
-                                    Navigator.pushNamed(context, "/index",
-                                        arguments: Constants.CORE_TEAM_CHANNEL);
-                                  },
-                                ),
-                                InkWell(
-                                  child: buildCard(
-                                    title: "Agora Support",
-                                    icon: Icons.headset_mic,
-                                    cardColor: Colors.blue[600],
-                                  ),
-                                  onTap: () {
-                                    Navigator.pushNamed(context, "/index",
-                                        arguments: Constants.AGORASUPPORT);
-                                  },
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                        alignment: Alignment.center,
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only(left: 20, top: 10),
-                        child: Text(
-                          'History',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize:
-                                Theme.of(context).textTheme.headline.fontSize,
-                            color: fadedBlack,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: 10, left: 20, right: 10),
-                        child: Column(
-                          children: <Widget>[
-                            Card(
-                              child: ListTile(
-                                leading: Icon(Icons.call, color: Colors.green),
-                                title: Text(
-                                  'DSC Core Team',
-                                  style: TextStyle(color: fadedBlack),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              child: ListTile(
-                                leading:
-                                    Icon(Icons.video_call, color: Colors.green),
-                                title: Text(
-                                  'Agora Support',
-                                  style: TextStyle(color: fadedBlack),
-                                ),
-                              ),
-                            ),
-                            Card(
-                              child: ListTile(
-                                leading:
-                                    Icon(Icons.video_call, color: Colors.green),
-                                title: Text(
-                                  'DSC Support',
-                                  style: TextStyle(color: fadedBlack),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )
+                Image.asset("assets/images/radio.png", height: 30, width: 30,),
+                SizedBox(width: 20,),
+                Text("Educate", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+                Spacer(),
+                //  Icon(Icons.settings)
               ],
             ),
           ),
-        ),
+
+
+          Container(
+
+
+            child: Column(
+              children: <Widget>[
+
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 20, right: 20,),
+                  child: Row(
+                    children: <Widget>[
+                      Text("Categories", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                      Spacer(),
+                      Text("SEE ALL", style: TextStyle(fontSize: 12),)
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20,),
+
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  physics: BouncingScrollPhysics(),
+                  child: Container(
+                    padding: EdgeInsets.only(left: 20, right: 20,),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.grey.withOpacity(0.3)
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Icon(Icons.computer),
+                                  SizedBox(width: 10,),
+                                  Text("Development", style: TextStyle(letterSpacing: 1),)
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.grey.withOpacity(0.3)
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Icon(Icons.attach_money),
+                                  SizedBox(width: 8,),
+                                  Text("Business", style: TextStyle(letterSpacing: 1),)
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.grey.withOpacity(0.3)
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Icon(Icons.work),
+                                  SizedBox(width: 10,),
+                                  Text("Office Productivity", style: TextStyle(letterSpacing: 1),)
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.grey.withOpacity(0.3)
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Icon(Icons.grain),
+                                  SizedBox(width: 8,),
+                                  Text("Marketing", style: TextStyle(letterSpacing: 1),)
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.grey.withOpacity(0.3)
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Icon(Icons.local_florist),
+                                  SizedBox(width: 10,),
+                                  Text("Science", style: TextStyle(letterSpacing: 1),)
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.grey.withOpacity(0.3)
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Icon(Icons.swap_vertical_circle),
+                                  SizedBox(width: 8,),
+                                  Text("Economics", style: TextStyle(letterSpacing: 1),)
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.grey.withOpacity(0.3)
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Icon(Icons.view_carousel),
+                                  SizedBox(width: 10,),
+                                  Text("Arts", style: TextStyle(letterSpacing: 1),)
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.grey.withOpacity(0.3)
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Icon(Icons.wb_iridescent),
+                                  SizedBox(width: 8,),
+                                  Text("Design", style: TextStyle(letterSpacing: 1),)
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+
+                SizedBox(height: 20,),
+
+
+              ],
+            ),
+          ),
+
+          SizedBox(height: 20,),
+
+
+          Container(
+            padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+            child: Column(
+              children: <Widget>[
+
+                Container(
+                  height: visible,
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Previous Channel",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17),
+                          ),
+                          Spacer(),
+                          Icon(Icons.more_vert)
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Automatically saved channel",
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      GestureDetector(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10),
+                              ),
+                          margin: EdgeInsets.only(left: 0, top: 10),
+                          width: double.infinity,
+                          child: Row(
+                            children: <Widget>[
+                              Text(
+                                history,
+                                style: TextStyle(
+                                   fontSize: 18),
+                              ),
+                              Spacer(),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 10),
+                                decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius:
+                                    BorderRadius.circular(20)),
+                                child: Text(
+                                  "Connect",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  IndexPage(channelName: history),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Live now",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                    Spacer(),
+                    Icon(Icons.more_vert)
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Stack(
+                      children: <Widget>[
+                        Image.asset(
+                          "assets/images/live.png",
+                          height: 150,
+                          width: 150,
+                        ),
+                        Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Container(
+                              height: 150,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: Colors.yellowAccent
+                                      .withOpacity(0.8),
+                                  borderRadius:
+                                  BorderRadius.circular(15)),
+                            ),
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
 
-  Padding buildCard({
-    String title,
-    IconData icon,
-    Color cardColor,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 20),
-      child: Card(
-        elevation: 5,
-        clipBehavior: Clip.hardEdge,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        child: Container(
-          decoration: BoxDecoration(color: cardColor),
-          height: 200,
-          width: 50,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Icon(
-                icon,
-                size: 50,
-                color: Colors.white,
-              ),
-              SizedBox(height: 20),
-              Text(
-                title,
-                style: TextStyle(color: textWhite, fontSize: 18),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+
+  getHistory() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+
+    setState(() {
+      if (sharedPreferences.getBool("started") != null) {
+        alreadyStarted = sharedPreferences.getBool("started");
+      }
+    });
+
+    if (sharedPreferences.getString("channel") == null) {
+      setState(() {
+        visible = 0;
+      });
+    } else {
+      setState(() {
+        visible = 160;
+        history = sharedPreferences.getString("channel");
+      });
+    }
   }
+
+  Future<void> getUserInfo() async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    DocumentReference documentReference =
+    Firestore.instance.collection('users').document(user.uid);
+
+    documentReference.get().then((datasnapshot) {
+      if (datasnapshot.exists) {
+        print(datasnapshot.data['email'].toString());
+        print(datasnapshot.data['name'].toString());
+        print(datasnapshot.data['residence'].toString());
+        var photolink;
+        try {
+          photolink = datasnapshot.data['photo'].toString();
+        } catch (e) {
+          photoUrl = "N/A";
+        }
+
+        setState(() {
+          username = datasnapshot.data['name'].toString();
+          email = datasnapshot.data['email'].toString();
+          photoUrl = photolink;
+
+          number = datasnapshot.data['phone'].toString();
+          type = datasnapshot.data['type'].toString();
+        });
+      }
+    });
+  }
+
+  Future<void> cacheUserInformation() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString(ConstantString.USERNAME, username);
+    sharedPreferences.setString(ConstantString.EMAIL, email);
+    sharedPreferences.setString(ConstantString.PHOTOURL, photoUrl);
+    sharedPreferences.setString(ConstantString.TYPE, type);
+  }
+
 }

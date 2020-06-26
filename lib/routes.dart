@@ -4,7 +4,7 @@ import 'package:agora_flutter_webrtc_quickstart/pages/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'pages/home.dart';
+import 'pages/home/home.dart';
 import 'pages/settings.dart';
 
 class Router {

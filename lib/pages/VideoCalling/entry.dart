@@ -58,20 +58,7 @@ class IndexState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        leading: GestureDetector(
-          onTap: (){
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-        ),
-      ),
+
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -86,6 +73,18 @@ class IndexState extends State<IndexPage> {
                   SizedBox(
                     height: 20,
                   ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+
                   Hero(
                       tag: "image0",
                       child: Image.asset(
@@ -135,7 +134,7 @@ class IndexState extends State<IndexPage> {
                     width: double.infinity,
                     child: Text(
                       "Configure temporary settings",
-                      style: TextStyle(color: Colors.black, fontSize: 19),
+                      style: TextStyle(fontSize: 19),
                     ),
                   ),
                   Row(
@@ -237,25 +236,21 @@ class IndexState extends State<IndexPage> {
                               saveHistory(_channelController.text);
 
                             },
-                            child: ClayContainer(
-                              customBorderRadius:
-                              BorderRadius.circular(15),
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 15),
-                                decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius:
-                                    BorderRadius.circular(15)),
-                                child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "Join or Create Channel",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    )),
-                              ),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius:
+                                  BorderRadius.circular(15)),
+                              child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Join or Create Channel",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  )),
                             ),
                           ),
                         )
@@ -271,25 +266,21 @@ class IndexState extends State<IndexPage> {
                           child: GestureDetector(
                             onTap: () {
                             },
-                            child: ClayContainer(
-                              customBorderRadius:
-                              BorderRadius.circular(15),
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 15),
-                                decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius:
-                                    BorderRadius.circular(15)),
-                                child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "Add to Favorites",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    )),
-                              ),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
+                              decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius:
+                                  BorderRadius.circular(15)),
+                              child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Add to Favorites",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  )),
                             ),
                           ),
                         )

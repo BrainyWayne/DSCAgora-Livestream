@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'home.dart';
+import 'home/home.dart';
 
 
 
@@ -52,7 +52,7 @@ class _SignupState extends State<Signup> {
           Container(
             height: double.infinity,
             width: double.infinity,
-            child: Image.asset("assets/images/technology1.png", fit: BoxFit.cover,),
+            child: Image.asset("assets/images/radio.png", fit: BoxFit.cover,),
           ),
 
           Container(
@@ -98,7 +98,7 @@ class _SignupState extends State<Signup> {
                           height: 50,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.grey,
                           ),
                           child: TextField(
                             controller: usernameontroller,
@@ -112,7 +112,7 @@ class _SignupState extends State<Signup> {
                           height: 50,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.grey,
                           ),
                           child: TextField(
                             controller: numberController,
@@ -127,7 +127,7 @@ class _SignupState extends State<Signup> {
                           height: 50,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.grey,
                           ),
                           child: TextField(
                             controller: emailController,
@@ -141,7 +141,7 @@ class _SignupState extends State<Signup> {
                           height: 50,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.grey,
                           ),
                           child: TextField(
                             controller: passwordController,
@@ -156,7 +156,7 @@ class _SignupState extends State<Signup> {
                           height: 50,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.grey,
                           ),
                           child: TextField(
                             controller: schoolController,
@@ -172,7 +172,7 @@ class _SignupState extends State<Signup> {
                           height: 50,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.grey,
                           ),
                           child:DropdownButton(
                             hint: Text(

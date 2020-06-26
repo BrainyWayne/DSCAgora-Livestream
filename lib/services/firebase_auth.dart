@@ -35,11 +35,10 @@ class Auth implements BaseAuth {
   Future<FirebaseUser> signIn(String email, String password) async {
     try {
       AuthResult user = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password);
-    // await _dbService.saveDeviceToken();
-    return user.user;
-    } catch (e) {
-    }
+          email: email, password: password);
+      // await _dbService.saveDeviceToken();
+      return user.user;
+    } catch (e) {}
   }
 
   Future<FirebaseUser> signUp(String email, String password) async {
@@ -52,16 +51,14 @@ class Auth implements BaseAuth {
       return user.user;
     } catch (e) {
       print(e);
-      
     }
   }
 
   Future<FirebaseUser> getCurrentUser() async {
     try {
       FirebaseUser user = await _firebaseAuth.currentUser();
-    return user;
-    } catch (e) {
-    }
+      return user;
+    } catch (e) {}
   }
 
   Future<void> signOut() async {
@@ -74,13 +71,9 @@ class Auth implements BaseAuth {
   }
 
   Future<void> sendEmailVerification() async {
-  
-    
-
     try {
       FirebaseUser user = await _firebaseAuth.currentUser();
       user.sendEmailVerification();
-      
     } catch (e) {
       print(e);
     }
@@ -113,9 +106,8 @@ class Auth implements BaseAuth {
     try {
       FirebaseUser user = await _firebaseAuth.currentUser();
 
-    return user.isEmailVerified;
-    } catch (e) {
-    }
+      return user.isEmailVerified;
+    } catch (e) {}
   }
 
   Future<FirebaseUser> facebookLogin() async {

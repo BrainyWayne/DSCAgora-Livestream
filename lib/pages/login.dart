@@ -6,7 +6,7 @@ import 'package:agora_flutter_webrtc_quickstart/pages/signup.dart';
 import 'package:agora_flutter_webrtc_quickstart/services/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'home.dart';
+import 'home/home.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
             height: double.infinity,
             width: double.infinity,
             child: Image.asset(
-              "assets/images/technology1.png",
+              "assets/images/radio.png",
               fit: BoxFit.cover,
             ),
           ),
@@ -52,7 +52,7 @@ class _LoginState extends State<Login> {
                 children: <Widget>[
                   Container(
                       padding: EdgeInsets.all(120),
-                      child: Image.asset("assets/images/technology1.png",
+                      child: Image.asset("assets/images/radio.png",
                           fit: BoxFit.cover)),
                   Padding(
                     padding:
@@ -65,7 +65,8 @@ class _LoginState extends State<Login> {
                           height: 50,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.grey,
+
                           ),
                           child: TextField(
                               controller: emailController,
@@ -78,7 +79,7 @@ class _LoginState extends State<Login> {
                           height: 50,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.grey,
                           ),
                           child: TextField(
                             controller: passwordController,
@@ -93,6 +94,9 @@ class _LoginState extends State<Login> {
                         Container(
                           height: 50,
                           width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20)
+                          ),
                           child: FlatButton(
                             padding: EdgeInsets.all(15),
                             color: Colors.green,
@@ -146,11 +150,14 @@ class _LoginState extends State<Login> {
                         ),
                         SizedBox(height: 20),
                         Text("Don't have an account?",
-                            style: TextStyle(color: Colors.white)),
+                            ),
                         SizedBox(height: 20),
                         Container(
                           height: 50,
                           width: double.infinity,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20)
+                          ),
                           child: FlatButton(
                             padding: EdgeInsets.all(15),
                             color: Colors.green,
@@ -175,7 +182,7 @@ class _LoginState extends State<Login> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text("Forgot Password?",
-                                style: TextStyle(color: Colors.white)),
+                                ),
                           ),
                         ),
                       ],
@@ -211,7 +218,7 @@ class _LoginState extends State<Login> {
               height: bottomLoaderHeight,
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.grey,
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(15))),
               child: Row(

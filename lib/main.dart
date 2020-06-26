@@ -22,7 +22,14 @@ class MyApp extends StatelessWidget {
       child: new MaterialApp(
         title: 'DSC',
         debugShowCheckedModeBanner: false,
-        theme: lightTheme,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: Colors.red,
+        ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          // additional settings go here
+        ),
         onGenerateRoute: Router.generateRoutes,
         initialRoute: '/splashscreen',
       ),

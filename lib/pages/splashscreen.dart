@@ -4,7 +4,7 @@ import 'package:agora_flutter_webrtc_quickstart/pages/homescreen.dart';
 import 'package:agora_flutter_webrtc_quickstart/services/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'home.dart';
+import 'home/home.dart';
 import 'login.dart';
 
 class SplashScreen extends StatefulWidget {

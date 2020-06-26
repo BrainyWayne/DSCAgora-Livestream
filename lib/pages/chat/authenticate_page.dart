@@ -1,6 +1,7 @@
+import 'package:agora_flutter_webrtc_quickstart/pages/chat/register_page.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/chat/signin_page.dart';
 import 'package:flutter/material.dart';
-import 'package:group_chat_app/pages/register_page.dart';
-import 'package:group_chat_app/pages/signin_page.dart';
+
 
 class AuthenticatePage extends StatefulWidget {
   @override

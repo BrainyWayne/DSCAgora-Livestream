@@ -1,14 +1,14 @@
+import 'package:agora_flutter_webrtc_quickstart/helper/helper_functions.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/chat/authenticate_page.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/chat/profile_page.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/chat/search_page.dart';
+import 'package:agora_flutter_webrtc_quickstart/services/auth_service.dart';
+import 'package:agora_flutter_webrtc_quickstart/services/database_service.dart';
+import 'package:agora_flutter_webrtc_quickstart/widgets/group_tile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:group_chat_app/helper/helper_functions.dart';
-import 'package:group_chat_app/pages/authenticate_page.dart';
-import 'package:group_chat_app/pages/chat_page.dart';
-import 'package:group_chat_app/pages/profile_page.dart';
-import 'package:group_chat_app/pages/search_page.dart';
-import 'package:group_chat_app/services/auth_service.dart';
-import 'package:group_chat_app/services/database_service.dart';
-import 'package:group_chat_app/widgets/group_tile.dart';
+
 
 class HomePage extends StatefulWidget {
   @override

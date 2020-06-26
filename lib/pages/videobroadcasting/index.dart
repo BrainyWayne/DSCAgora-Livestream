@@ -4,7 +4,7 @@ import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import './call.dart';
+import './broadcastingcall.dart';
 
 class VideoBroadcastingIndexPage extends StatefulWidget {
   @override
@@ -30,30 +30,28 @@ class IndexState extends State<VideoBroadcastingIndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        leading: GestureDetector(
-          onTap: (){
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-        ),
-      ),
+
       body: Container(
-        color: Colors.white,
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ListView(
           children: [
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(
                   height: 20,
+                ),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pop(context);
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
                 ),
                 Hero(
 

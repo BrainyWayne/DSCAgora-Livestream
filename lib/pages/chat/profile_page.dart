@@ -1,7 +1,8 @@
+import 'package:agora_flutter_webrtc_quickstart/pages/chat/authenticate_page.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/chat/home_page.dart';
+import 'package:agora_flutter_webrtc_quickstart/services/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:group_chat_app/pages/authenticate_page.dart';
-import 'package:group_chat_app/pages/home_page.dart';
-import 'package:group_chat_app/services/auth_service.dart';
+
 
 class ProfilePage extends StatelessWidget {
 
