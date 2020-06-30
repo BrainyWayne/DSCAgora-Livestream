@@ -80,59 +80,62 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-        child: Stack(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(bottom: 70),
-              child: _chatMessages(),
-            ),
-            // Container(),
-            Container(
-              alignment: Alignment.bottomCenter,
-              width: MediaQuery.of(context).size.width,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.9),
-                    borderRadius: BorderRadius.circular(20)),
-                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: TextField(
-                        controller: messageEditingController,
-                        style: TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                            hintText: "Send a message ...",
-                            hintStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                            ),
-                            border: InputBorder.none),
-                      ),
-                    ),
-                    SizedBox(width: 12.0),
-                    GestureDetector(
-                      onTap: () {
-                        _sendMessage();
-                      },
-                      child: Container(
-                        height: 50.0,
-                        width: 50.0,
-                        decoration: BoxDecoration(
-                            color: Colors.blueAccent,
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Center(
-                            child: Icon(Icons.send, color: Colors.white)),
-                      ),
-                    )
-                  ],
-                ),
+      body: ClipRRect(
+        child: Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(bottom: 70),
+                child: _chatMessages(),
               ),
-            )
-          ],
+              // Container(),
+              Container(
+
+                alignment: Alignment.bottomCenter,
+                width: MediaQuery.of(context).size.width,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(20)),
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: TextField(
+                          controller: messageEditingController,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              hintText: "Send a message ...",
+                              hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
+                              border: InputBorder.none),
+                        ),
+                      ),
+                      SizedBox(width: 12.0),
+                      GestureDetector(
+                        onTap: () {
+                          _sendMessage();
+                        },
+                        child: Container(
+                          height: 50.0,
+                          width: 50.0,
+                          decoration: BoxDecoration(
+                              color: Colors.blueAccent,
+                              borderRadius: BorderRadius.circular(50)),
+                          child: Center(
+                              child: Icon(Icons.send, color: Colors.white)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

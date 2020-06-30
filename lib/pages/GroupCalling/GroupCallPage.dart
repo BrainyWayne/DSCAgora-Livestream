@@ -1,20 +1,25 @@
 import 'package:agora_flutter_webrtc_quickstart/agoraappid.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/chat/chat_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 
-class CallPage extends StatefulWidget {
+class GroupCallPage extends StatefulWidget {
   
   final String channelName;
-  const CallPage({Key key, this.channelName}) : super(key: key);
+  final String username;
+  const GroupCallPage({Key key, this.channelName, this.username}) : super(key: key);
 
   @override
-  _CallPageState createState() => _CallPageState();
+  _GroupCallPageState createState() => _GroupCallPageState();
 }
 
-class _CallPageState extends State<CallPage> {
+class _GroupCallPageState extends State<GroupCallPage> {
   static final _users = <int>[];
   final _infoStrings = <String>[];
   bool muted = false;
+  double chatHeight = 0;
+
 
   @override
   void dispose() {
@@ -164,15 +169,16 @@ Widget _panel() {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agora Group Calling'),
+        automaticallyImplyLeading: false,
+        title: Text(widget.channelName),
       ),
-      backgroundColor: Colors.black,
       body: Center(
         child: Stack(
           children: <Widget>[
             _viewRows(),
             _panel(),
             _toolbar(),
+            _chatPage(),
           ],
         ),
       ),
@@ -239,54 +245,96 @@ Widget _panel() {
     }
     return Container();
   }
+
+
+
   /// Toolbar layout
   Widget _toolbar() {
     return Container(
       alignment: Alignment.bottomCenter,
-      padding: const EdgeInsets.symmetric(vertical: 48),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          RawMaterialButton(
-            onPressed: _onToggleMute,
-            child: Icon(
-              muted ? Icons.mic_off : Icons.mic,
-              color: muted ? Colors.white : Colors.blueAccent,
-              size: 20.0,
+      padding: const EdgeInsets.symmetric(vertical: 18),
+      child: SafeArea(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            RawMaterialButton(
+              onPressed: _onToggleMute,
+              child: Icon(
+                muted ? Icons.mic_off : Icons.mic,
+                color: muted ? Colors.white : Colors.blueAccent,
+                size: 20.0,
+              ),
+              shape: CircleBorder(),
+              elevation: 2.0,
+              fillColor: muted ? Colors.blueAccent : Colors.white,
+              padding: const EdgeInsets.all(12.0),
             ),
-            shape: CircleBorder(),
-            elevation: 2.0,
-            fillColor: muted ? Colors.blueAccent : Colors.white,
-            padding: const EdgeInsets.all(12.0),
-          ),
-          RawMaterialButton(
-            onPressed: () => _onCallEnd(context),
-            child: Icon(
-              Icons.call_end,
-              color: Colors.white,
-              size: 35.0,
+            RawMaterialButton(
+              onPressed: _toggleChat,
+              child: Icon(
+                Icons.chat,
+                color: Colors.blueAccent,
+                size: 20.0,
+              ),
+              shape: CircleBorder(),
+              elevation: 2.0,
+              fillColor: Colors.white,
+              padding: const EdgeInsets.all(12.0),
             ),
-            shape: CircleBorder(),
-            elevation: 2.0,
-            fillColor: Colors.redAccent,
-            padding: const EdgeInsets.all(15.0),
-          ),
-          RawMaterialButton(
-            onPressed: _onSwitchCamera,
-            child: Icon(
-              Icons.switch_camera,
-              color: Colors.blueAccent,
-              size: 20.0,
+            RawMaterialButton(
+              onPressed: () => _onCallEnd(context),
+              child: Icon(
+                Icons.call_end,
+                color: Colors.white,
+                size: 35.0,
+              ),
+              shape: CircleBorder(),
+              elevation: 2.0,
+              fillColor: Colors.redAccent,
+              padding: const EdgeInsets.all(15.0),
             ),
-            shape: CircleBorder(),
-            elevation: 2.0,
-            fillColor: Colors.white,
-            padding: const EdgeInsets.all(12.0),
-          )
-        ],
+            RawMaterialButton(
+              onPressed: _onSwitchCamera,
+              child: Icon(
+                Icons.switch_camera,
+                color: Colors.blueAccent,
+                size: 20.0,
+              ),
+              shape: CircleBorder(),
+              elevation: 2.0,
+              fillColor: Colors.white,
+              padding: const EdgeInsets.all(12.0),
+            ),
+
+
+          ],
+        ),
       ),
     );
   }
+
+  Widget _chatPage(){
+    return  Positioned(
+      bottom: 90,
+      left: 0,
+      right: 0,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: AnimatedContainer(
+          margin: EdgeInsets.symmetric(horizontal: 2),
+          duration: Duration(milliseconds: 500),
+          curve: Curves.ease,
+          height: chatHeight,
+          width: double.infinity,
+          child: ChatPage(
+            groupId: widget.channelName,
+            userName: widget.username,
+            groupName: widget.channelName,),
+        ),
+      ),
+    );
+  }
+
   void _onCallEnd(BuildContext context) {
     Navigator.pop(context);
   }
@@ -300,6 +348,18 @@ Widget _panel() {
 
   void _onSwitchCamera() {
     AgoraRtcEngine.switchCamera();
+  }
+
+  void _toggleChat(){
+      if(chatHeight == 0){
+        setState(() {
+          chatHeight = 300;
+        });
+      } else if(chatHeight == 300){
+        setState(() {
+          chatHeight = 0;
+        });
+      }
   }
 
 }

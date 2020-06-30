@@ -1,5 +1,6 @@
 import 'file:///D:/Mobile%20App%20Development/DSCAgora-Livestream/lib/pages/VideoCalling/call.dart';
 import 'package:agora_flutter_webrtc_quickstart/agoraappid.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/GroupCalling/GroupCallPage.dart';
 import 'package:agora_flutter_webrtc_quickstart/pages/chat/chat_page.dart';
 import 'package:agora_flutter_webrtc_quickstart/pages/whiteboard/whiteboard.dart';
 import 'package:agora_flutter_webrtc_quickstart/util/strings.dart';
@@ -73,18 +74,8 @@ class _VideoCallingPageViewState extends State<VideoCallingPageView> {
               height: MediaQuery.of(context).size.height,
               child: PageView(
                 children: <Widget>[
-                  CallPage(
-                    appId: AgoraAppId.id,
-                    channel: widget.channel,
-                    video: widget.video,
-                    audio: widget.audio,
-                    screen: widget.screen,
-                    profile: widget.profile,
-                    width: '',
-                    height: '',
-                    framerate: '',
-                    codec: widget.codec,
-                    mode: widget.mode,
+                  GroupCallPage(
+                    channelName: widget.channel,
                     username: username,
                   ),
 
