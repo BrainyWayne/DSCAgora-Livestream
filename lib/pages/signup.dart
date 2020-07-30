@@ -217,7 +217,7 @@ class _SignupState extends State<Signup> {
 
                                 _auth.sendEmailVerification();
 
-                                await uploadFile();
+                                //await uploadFile();
                                 //Uploading information to firestore
                                 Firestore.instance
                                     .collection('users')
@@ -229,7 +229,7 @@ class _SignupState extends State<Signup> {
                                   "phone": numberController.text,
                                   "school": schoolController.text,
                                   "type": _selectedSignType,
-                                  "photo": imageURL.toString(),
+                                  "photo": "default",
                                 })
                                     .then((result) => {
 

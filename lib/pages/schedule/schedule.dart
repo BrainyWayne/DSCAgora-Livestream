@@ -4,7 +4,7 @@ import 'package:agora_flutter_webrtc_quickstart/util/strings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+//import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:share/share.dart';
 
 class Schedule extends StatefulWidget {
@@ -265,20 +265,20 @@ class _ScheduleState extends State<Schedule> {
                       height: 10,
                     ),
                     FlatButton(
-                        onPressed: () {
-                          DatePicker.showDateTimePicker(context,
-                              showTitleActions: true, onChanged: (date) {
-                            print('change $date in time zone ' +
-                                date.timeZoneOffset.inHours.toString());
-                          }, onConfirm: (date) {
-                            print('confirm $date');
-                            setState(() {
-                              dateAndTime = date.toString();
-                            });
-                          },
-                              currentTime: DateTime.now(),
-                              locale: LocaleType.en);
-                        },
+//                        onPressed: () {
+//                          DatePicker.showDateTimePicker(context,
+//                              showTitleActions: true, onChanged: (date) {
+//                            print('change $date in time zone ' +
+//                                date.timeZoneOffset.inHours.toString());
+//                          }, onConfirm: (date) {
+//                            print('confirm $date');
+//                            setState(() {
+//                              dateAndTime = date.toString();
+//                            });
+//                          },
+//                              currentTime: DateTime.now(),
+//                              locale: LocaleType.en);
+//                        },
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
