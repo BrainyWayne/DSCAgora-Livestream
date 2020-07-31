@@ -1,4 +1,4 @@
-# Agora Flutter WebRTC Quickstart
+# Exemplar Video Conferencing using Agora.io
 
 *其他语言版本： [简体中文](README.zh.md)*
 
@@ -16,10 +16,13 @@ This repository shows you how to use Agora Flutter SDK to build a simple video c
 - Switch camera views
 - Layout multiple video views
 
-![Screenshot-1](screen-shoot1.jpeg)
-![Screenshot-2](screen-shoot2.jpeg)
-![Screenshot-3](screen-shoot3.jpeg)
-![Screenshot-4](screen-shoot4.jpeg)
+![Screenshot-1](ss1.png)
+![Screenshot-2](ss2.png)
+![Screenshot-3](ss3.png)
+![Screenshot-4](ss4.png)
+![Screenshot-5](ss5.png)
+![Screenshot-6](ss6.png)
+![Screenshot-4](ss7.png)
 
 
 ### Create an Account and Obtain an App ID
