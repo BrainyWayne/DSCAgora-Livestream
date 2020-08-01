@@ -74,6 +74,26 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
+  fonts:
+    - family: nunito
+      fonts:
+        - asset: assets/font/Nunito/Nunito-Regular.ttf
+    - family: nunitobold
+      fonts:
+        - asset: assets/font/Nunito/Nunito-Bold.ttf
+    - family: nunitoextra
+      fonts:
+        - asset: assets/font/Nunito/Nunito-ExtraBold.ttf
+    - family: nunito
+      fonts:
+        - asset: assets/font/Nunito/Nunito-Black.ttf
+    - family: modulus
+      fonts:
+        - asset: assets/font/Modulus_Medium.ttf
+
+    - family: modudlusbold
+      fonts:
+        - asset: assets/font/Modulus-Bold.otf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

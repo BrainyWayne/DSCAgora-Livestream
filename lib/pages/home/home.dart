@@ -53,17 +53,13 @@ class _HomeState extends State<Home> {
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: Row(
                   children: <Widget>[
-                    Image.asset(
-                      "assets/images/radio.png",
-                      height: 30,
-                      width: 30,
-                    ),
+                    Icon(Icons.menu),
                     SizedBox(
                       width: 20,
                     ),
                     Text(
                       "Exemplar",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, fontFamily: "nunitobold"),
                     ),
                     Spacer(),
                     //  Icon(Icons.settings)
@@ -73,56 +69,9 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                padding: EdgeInsets.symmetric(vertical: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.grey.withOpacity(0.5)
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Image.asset(
-                          "assets/images/play.png",
-                          height: 50,
-                          width: 50,
-                          color: darkMode ? Colors.green : Colors.green,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Image.asset(
-                          "assets/images/speaker.png",
-                          height: 50,
-                          width: 50,
-                          color: darkMode ? Colors.red : Colors.red,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Image.asset(
-                          "assets/images/exam.png",
-                          height: 50,
-                          width: 50,
-                          color: darkMode ? Colors.yellowAccent : Colors.yellowAccent,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      child: Text("Get face-to-face with a colleague, teacher, or friend "
-                          "from the comfort of your home or anywhere "
-                          "around the world", style: TextStyle(fontSize: 19),),
-                    ),
-                  ],
-                ),
-              ),
+
+              Text("Hi Francis", style: TextStyle(fontFamily: "nunito", fontSize: 30),),
+
               Container(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Column(

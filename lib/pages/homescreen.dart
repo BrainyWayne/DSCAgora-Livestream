@@ -1,4 +1,5 @@
 import 'file:///D:/Mobile%20App%20Development/DSCAgora-Livestream/lib/pages/VideoCalling/entry.dart';
+import 'package:agora_flutter_webrtc_quickstart/pages/chat/home_page.dart';
 import 'package:agora_flutter_webrtc_quickstart/pages/chat/profile_page.dart';
 import 'package:agora_flutter_webrtc_quickstart/pages/connect/connect.dart';
 import 'package:agora_flutter_webrtc_quickstart/pages/getstarted/getstartedpageview.dart';
@@ -16,21 +17,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-
 int currentindex = 0;
 
 class _HomeScreenState extends State<HomeScreen> {
   PageController _controller = PageController(initialPage: 0);
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +37,11 @@ class _HomeScreenState extends State<HomeScreen> {
           showSelectedLabels: true,
           showUnselectedLabels: true,
           unselectedItemColor: Colors.grey,
-          onTap: (int i){
+          onTap: (int i) {
             setState(() {
               currentindex = i;
-              _controller.animateToPage(currentindex, duration: Duration(milliseconds: 500), curve: Curves.ease);
+              _controller.animateToPage(currentindex,
+                  duration: Duration(milliseconds: 500), curve: Curves.ease);
             });
           },
           items: <BottomNavigationBarItem>[
@@ -68,20 +64,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         body: Container(
-          child: PageView(
-            physics: NeverScrollableScrollPhysics(),
-            controller: _controller,
-            children: <Widget>[
-              Home(),
-              Connect(),
-              Schedule(),
-              Profile()
-            ],
-          )
-        ),
+            child: PageView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: _controller,
+          children: <Widget>[Home(), Connect(), Schedule(), Profile()],
+        )),
       ),
     );
   }
-
-
 }
