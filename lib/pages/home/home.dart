@@ -1,5 +1,6 @@
 import 'package:agora_flutter_webrtc_quickstart/pages/videobroadcasting/index.dart';
 import 'package:agora_flutter_webrtc_quickstart/pages/whiteboard/whiteboard.dart';
+import 'package:agora_flutter_webrtc_quickstart/util/globalfunctions.dart';
 import 'package:agora_flutter_webrtc_quickstart/util/strings.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clay_containers/constants.dart';
@@ -30,10 +31,18 @@ FirebaseUser publicuser;
 class _HomeState extends State<Home> {
   SharedPreferences sharedPreferences;
   bool darkMode = true;
+  int greeting;
+
+  List<String> greetings = [
+    "Have a nice day",
+    "Glad to have you back",
+    "Welcome back",
+  ];
 
   @override
   void initState() {
     history = "nada";
+    greeting = randomNumber(0, 2);
     getHistory();
     getUserInfo();
     checkDarkMode();
@@ -58,20 +67,44 @@ class _HomeState extends State<Home> {
                       width: 20,
                     ),
                     Text(
-                      "Exemplar",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, fontFamily: "nunitobold"),
+                      "Home",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: "nunitobold"),
                     ),
                     Spacer(),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(200),
+                        child: CachedNetworkImage(
+                      imageUrl: photoUrl,
+                      height: 50,
+                      width: 50,
+                    ))
                     //  Icon(Icons.settings)
                   ],
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
-
-              Text("Hi Francis", style: TextStyle(fontFamily: "nunito", fontSize: 30),),
-
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Hi " + username.split(" ")[0],
+                      style: TextStyle(fontFamily: "nunito", fontSize: 28),
+                    ),
+                    Text(
+                      greetings[greeting],
+                      style: TextStyle(fontFamily: "nunitobold", fontSize: 30),
+                    ),
+                    Text(DateTime.now().toString().split(" ")[0])
+                  ],
+                ),
+              ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Column(
@@ -89,13 +122,41 @@ class _HomeState extends State<Home> {
                           Text(
                             "Categories",
                             style: TextStyle(
+                              fontFamily: "nunito",
                                 fontSize: 18, fontWeight: FontWeight.w500),
                           ),
                           Spacer(),
                           Text(
                             "SEE ALL",
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontFamily: "nunito",fontSize: 12),
                           )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width  * 0.43,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(20)
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width  * 0.43,
+                            height: 120,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(20)
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -130,7 +191,7 @@ class _HomeState extends State<Home> {
                                       ),
                                       Text(
                                         "Development",
-                                        style: TextStyle(letterSpacing: 1),
+                                        style: TextStyle(fontFamily: "nunito",letterSpacing: 1),
                                       )
                                     ],
                                   ),
@@ -153,7 +214,7 @@ class _HomeState extends State<Home> {
                                       ),
                                       Text(
                                         "Business",
-                                        style: TextStyle(letterSpacing: 1),
+                                        style: TextStyle(fontFamily: "nunito",letterSpacing: 1),
                                       )
                                     ],
                                   ),
@@ -176,7 +237,7 @@ class _HomeState extends State<Home> {
                                       ),
                                       Text(
                                         "Office Productivity",
-                                        style: TextStyle(letterSpacing: 1),
+                                        style: TextStyle(fontFamily: "nunito",letterSpacing: 1),
                                       )
                                     ],
                                   ),
@@ -199,7 +260,7 @@ class _HomeState extends State<Home> {
                                       ),
                                       Text(
                                         "Marketing",
-                                        style: TextStyle(letterSpacing: 1),
+                                        style: TextStyle(fontFamily: "nunito",letterSpacing: 1),
                                       )
                                     ],
                                   ),
@@ -227,7 +288,7 @@ class _HomeState extends State<Home> {
                                       ),
                                       Text(
                                         "Science",
-                                        style: TextStyle(letterSpacing: 1),
+                                        style: TextStyle(fontFamily: "nunito",letterSpacing: 1),
                                       )
                                     ],
                                   ),
@@ -250,7 +311,7 @@ class _HomeState extends State<Home> {
                                       ),
                                       Text(
                                         "Economics",
-                                        style: TextStyle(letterSpacing: 1),
+                                        style: TextStyle(fontFamily: "nunito",letterSpacing: 1),
                                       )
                                     ],
                                   ),
@@ -273,7 +334,7 @@ class _HomeState extends State<Home> {
                                       ),
                                       Text(
                                         "Arts",
-                                        style: TextStyle(letterSpacing: 1),
+                                        style: TextStyle(fontFamily: "nunito",letterSpacing: 1),
                                       )
                                     ],
                                   ),
@@ -296,7 +357,7 @@ class _HomeState extends State<Home> {
                                       ),
                                       Text(
                                         "Design",
-                                        style: TextStyle(letterSpacing: 1),
+                                        style: TextStyle(fontFamily: "nunito",letterSpacing: 1),
                                       )
                                     ],
                                   ),
@@ -336,8 +397,8 @@ class _HomeState extends State<Home> {
                               ),
                               Text(
                                 "Previous Channel",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                style: TextStyle(fontFamily: "nunito",
+                                  fontSize: 17),
                               ),
                               Spacer(),
                               Icon(Icons.more_vert)
@@ -350,7 +411,7 @@ class _HomeState extends State<Home> {
                               ),
                               Text(
                                 "Automatically saved channel",
-                                style: TextStyle(
+                                style: TextStyle(fontFamily: "nunito",
                                   color: Colors.grey,
                                 ),
                               ),
@@ -373,7 +434,7 @@ class _HomeState extends State<Home> {
                                 children: <Widget>[
                                   Text(
                                     history,
-                                    style: TextStyle(fontSize: 18),
+                                    style: TextStyle(fontFamily: "nunito",fontSize: 18),
                                   ),
                                   Spacer(),
                                   Container(
@@ -381,10 +442,11 @@ class _HomeState extends State<Home> {
                                         vertical: 5, horizontal: 10),
                                     decoration: BoxDecoration(
                                         color: Colors.green,
-                                        borderRadius: BorderRadius.circular(20)),
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
                                     child: Text(
                                       "Connect",
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(fontFamily: "nunito",color: Colors.white),
                                     ),
                                   )
                                 ],
@@ -413,8 +475,8 @@ class _HomeState extends State<Home> {
                         ),
                         Text(
                           "Live now",
-                          style:
-                              TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                          style: TextStyle(fontFamily: "nunito",
+                              fontSize: 20),
                         ),
                         Spacer(),
                         Icon(Icons.more_vert)
@@ -438,7 +500,8 @@ class _HomeState extends State<Home> {
                                   height: 150,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                      color: Colors.yellowAccent.withOpacity(0.8),
+                                      color:
+                                          Colors.yellowAccent.withOpacity(0.8),
                                       borderRadius: BorderRadius.circular(15)),
                                 ),
                               ],
