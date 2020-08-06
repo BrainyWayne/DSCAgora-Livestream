@@ -1,3 +1,4 @@
+import 'package:agora_flutter_webrtc_quickstart/pages/calldetails.dart';
 import 'package:agora_flutter_webrtc_quickstart/pages/home/home.dart';
 import 'package:agora_flutter_webrtc_quickstart/util/crudobj.dart';
 import 'package:agora_flutter_webrtc_quickstart/util/strings.dart';
@@ -95,20 +96,15 @@ class _ScheduleState extends State<Schedule> {
                     itemBuilder: (context, i) {
                       return InkWell(
                         onTap: () {
-//                    Navigator.push(
-//                        context,
-//                        MaterialPageRoute(
-//                            builder: (BuildContext context) => ViewUser(
-//                              username: postmethods.documents[i].data['name'],
-//                              title: postmethods.documents[i].data['title'],
-//                              email: postmethods.documents[i].data['emmail'],
-//                              details:
-//                              postmethods.documents[i].data['details'],
-//                              type: postmethods.documents[i].data['type'],
-//                              number: postmethods.documents[i].data['number'],
-//                              residence:
-//                              postmethods.documents[i].data['residence'],
-//                            )));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => CallDetails(
+                              name: postmethods.documents[i].data['name'],
+                              channelName: postmethods.documents[i].data['channelname'],
+                              date: postmethods.documents[i].data['dateandtime'],
+
+                            )));
                         },
                         child: new Container(
                           margin:
